@@ -1,0 +1,19 @@
+DEPLOY LOCAL - STAGING
+Data da validação: 2026-10-10 15:11:32 -03:00
+
+Serviço: ecoactions-api
+  Container: ecoactions-staging-ecoactions-api-1
+  Imagem: ecoactions-api:local
+  Estado: running | Health: healthy
+  Portas: 0.0.0.0:8081->8080/tcp, [::]:8081->8080/tcp
+  Rede: ecoactions-staging_ecoactions-network
+
+Serviço: mongo-db
+  Container: ecoactions-staging-mongo-db-1
+  Imagem: mongo:7.0
+  Estado: running | Health: healthy
+  Portas: 0.0.0.0:27018->27017/tcp, [::]:27018->27017/tcp
+  Rede: ecoactions-staging_ecoactions-network
+
+Health check http://localhost:8081/api/health
+{"timestamp":"2026-10-10T18:11:32.385073566Z","application":"ecoactions-api","status":"UP"}

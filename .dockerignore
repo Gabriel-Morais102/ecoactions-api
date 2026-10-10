@@ -1,0 +1,15 @@
+.git
+.github
+.env
+.env.*
+.idea
+.vscode
+.doc_build
+target
+oracleJdk-26
+docs
+documentacao
+entrega
+deploy
+*.iml
+*.log

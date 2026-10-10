@@ -1,0 +1,174 @@
+name: CI/CD - EcoActions API
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ecoactions-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    name: Build e testes
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Baixar o código-fonte
+        uses: actions/checkout@v4
+
+      - name: Configurar Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: maven
+
+      - name: Permitir execução do Maven Wrapper
+        run: chmod +x mvnw
+
+      - name: Compilar e executar os testes
+        run: ./mvnw --batch-mode --no-transfer-progress clean verify
+
+      - name: Salvar JAR e relatórios de testes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-${{ github.run_number }}
+          path: |
+            target/*.jar
+            target/surefire-reports/
+          if-no-files-found: warn
+          retention-days: 7
+
+  docker-image:
+    name: Criar imagem Docker
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      APP_IMAGE: ecoactions-api:${{ github.sha }}
+
+    steps:
+      - name: Baixar o código-fonte
+        uses: actions/checkout@v4
+
+      - name: Construir a imagem da aplicação
+        run: docker build --tag "$APP_IMAGE" .
+
+      - name: Conferir usuário não privilegiado da imagem
+        run: test "$(docker image inspect --format '{{.Config.User}}' "$APP_IMAGE")" = "spring:spring"
+
+      - name: Empacotar a imagem para os deploys
+        run: docker save "$APP_IMAGE" --output ecoactions-api-image.tar
+
+      - name: Publicar a imagem como artefato do pipeline
+        uses: actions/upload-artifact@v4
+        with:
+          name: ecoactions-api-image
+          path: ecoactions-api-image.tar
+          compression-level: 0
+          retention-days: 1
+
+  deploy-staging:
+    name: Deploy em staging
+    if: github.event_name != 'pull_request'
+    needs: docker-image
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: staging
+    env:
+      APP_IMAGE: ecoactions-api:${{ github.sha }}
+
+    steps:
+      - name: Baixar os arquivos de infraestrutura
+        uses: actions/checkout@v4
+
+      - name: Baixar a imagem gerada no pipeline
+        uses: actions/download-artifact@v4
+        with:
+          name: ecoactions-api-image
+
+      - name: Carregar a imagem Docker
+        run: docker load --input ecoactions-api-image.tar
+
+      - name: Subir o ambiente de staging
+        run: docker compose --env-file deploy/staging.env.example up --detach --no-build
+
+      - name: Validar o deploy de staging
+        shell: bash
+        run: |
+          for tentativa in {1..30}; do
+            if curl --fail --silent http://localhost:8081/api/health | grep --quiet '"status":"UP"'; then
+              echo "Staging está saudável."
+              docker compose --env-file deploy/staging.env.example ps
+              exit 0
+            fi
+            echo "Aguardando staging... tentativa ${tentativa}/30"
+            sleep 2
+          done
+
+          echo "Staging não ficou disponível no tempo esperado."
+          docker compose --env-file deploy/staging.env.example logs --no-color
+          exit 1
+
+      - name: Limpar o runner de staging
+        if: always()
+        run: docker compose --env-file deploy/staging.env.example down --volumes
+
+  deploy-production:
+    name: Deploy em produção
+    if: github.event_name != 'pull_request'
+    needs:
+      - docker-image
+      - deploy-staging
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: production
+    env:
+      APP_IMAGE: ecoactions-api:${{ github.sha }}
+
+    steps:
+      - name: Baixar os arquivos de infraestrutura
+        uses: actions/checkout@v4
+
+      - name: Baixar a imagem aprovada em staging
+        uses: actions/download-artifact@v4
+        with:
+          name: ecoactions-api-image
+
+      - name: Carregar a imagem Docker
+        run: docker load --input ecoactions-api-image.tar
+
+      - name: Subir o ambiente de produção
+        run: docker compose --env-file deploy/production.env.example up --detach --no-build
+
+      - name: Validar o deploy de produção
+        shell: bash
+        run: |
+          for tentativa in {1..30}; do
+            if curl --fail --silent http://localhost:8082/api/health | grep --quiet '"status":"UP"'; then
+              echo "Produção está saudável."
+              docker compose --env-file deploy/production.env.example ps
+              exit 0
+            fi
+            echo "Aguardando produção... tentativa ${tentativa}/30"
+            sleep 2
+          done
+
+          echo "Produção não ficou disponível no tempo esperado."
+          docker compose --env-file deploy/production.env.example logs --no-color
+          exit 1
+
+      - name: Limpar o runner de produção
+        if: always()
+        run: docker compose --env-file deploy/production.env.example down --volumes

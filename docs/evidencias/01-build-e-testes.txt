@@ -1,0 +1,82 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< br.com.fiap:ecoactions-api >---------------------
+[INFO] Building  0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.4.1:clean (default-clean) @ ecoactions-api ---
+[INFO] Deleting C:\Users\gelm9\Downloads\ecoactions-api\ecoactions-api\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ ecoactions-api ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ ecoactions-api ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 38 source files with javac [debug parameters release 17] to target\classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ ecoactions-api ---
+[INFO] Copying 0 resource from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ ecoactions-api ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 5 source files with javac [debug parameters release 17] to target\test-classes
+[INFO] 
+[INFO] --- surefire:3.5.5:test (default-test) @ ecoactions-api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running br.com.fiap.ecoactions_api.controller.HealthControllerTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.097 s -- in br.com.fiap.ecoactions_api.controller.HealthControllerTest
+[INFO] Running br.com.fiap.ecoactions_api.EcoactionsApiApplicationTests
+15:09:11.984 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [br.com.fiap.ecoactions_api.EcoactionsApiApplicationTests]: EcoactionsApiApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+15:09:12.103 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration br.com.fiap.ecoactions_api.EcoactionsApiApplication for test class br.com.fiap.ecoactions_api.EcoactionsApiApplicationTests
+15:09:12.248 [main] INFO org.springframework.boot.devtools.restart.RestartApplicationListener -- Restart disabled due to context in which it is running
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.14)
+
+2026-10-10T15:09:12.497-03:00  INFO 48532 --- [ecoactions-api] [           main] b.c.f.e.EcoactionsApiApplicationTests    : Starting EcoactionsApiApplicationTests using Java 21.0.11 with PID 48532 (started by gelm9 in C:\Users\gelm9\Downloads\ecoactions-api\ecoactions-api)
+2026-10-10T15:09:12.498-03:00  INFO 48532 --- [ecoactions-api] [           main] b.c.f.e.EcoactionsApiApplicationTests    : No active profile set, falling back to 1 default profile: "default"
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (C:\Users\gelm9\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+2026-10-10T15:09:14.718-03:00  INFO 48532 --- [ecoactions-api] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-10-10T15:09:15.419-03:00  INFO 48532 --- [ecoactions-api] [           main] b.c.f.e.EcoactionsApiApplicationTests    : Started EcoactionsApiApplicationTests in 3.182 seconds (process running for 4.097)
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.591 s -- in br.com.fiap.ecoactions_api.EcoactionsApiApplicationTests
+[INFO] Running br.com.fiap.ecoactions_api.service.AlertaServiceTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.157 s -- in br.com.fiap.ecoactions_api.service.AlertaServiceTest
+[INFO] Running br.com.fiap.ecoactions_api.service.ColetaServiceTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.024 s -- in br.com.fiap.ecoactions_api.service.ColetaServiceTest
+[INFO] Running br.com.fiap.ecoactions_api.service.ResiduoServiceTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.032 s -- in br.com.fiap.ecoactions_api.service.ResiduoServiceTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ ecoactions-api ---
+[INFO] Building jar: C:\Users\gelm9\Downloads\ecoactions-api\ecoactions-api\target\ecoactions-api-0.0.1-SNAPSHOT.jar
+[INFO] 
+[INFO] --- spring-boot:3.5.14:repackage (repackage) @ ecoactions-api ---
+[INFO] Replacing main artifact C:\Users\gelm9\Downloads\ecoactions-api\ecoactions-api\target\ecoactions-api-0.0.1-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to C:\Users\gelm9\Downloads\ecoactions-api\ecoactions-api\target\ecoactions-api-0.0.1-SNAPSHOT.jar.original
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  9.964 s
+[INFO] Finished at: 2026-10-10T15:09:16-03:00
+[INFO] ------------------------------------------------------------------------

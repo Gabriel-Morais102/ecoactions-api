@@ -1,0 +1,19 @@
+DEPLOY LOCAL - PRODUÇÃO
+Data da validação: 2026-10-10 15:11:32 -03:00
+
+Serviço: ecoactions-api
+  Container: ecoactions-production-ecoactions-api-1
+  Imagem: ecoactions-api:local
+  Estado: running | Health: healthy
+  Portas: 0.0.0.0:8082->8080/tcp, [::]:8082->8080/tcp
+  Rede: ecoactions-production_ecoactions-network
+
+Serviço: mongo-db
+  Container: ecoactions-production-mongo-db-1
+  Imagem: mongo:7.0
+  Estado: running | Health: healthy
+  Portas: 0.0.0.0:27019->27017/tcp, [::]:27019->27017/tcp
+  Rede: ecoactions-production_ecoactions-network
+
+Health check http://localhost:8082/api/health
+{"timestamp":"2026-10-10T18:11:32.943866812Z","application":"ecoactions-api","status":"UP"}
