@@ -1,0 +1,16 @@
+Validação HTTP em staging - 2026-10-10 16:45:34 -03:00
+Post /residuos -> 201
+Post /residuos -> 409
+Post /residuos -> 400
+Post /residuos -> 400
+Post /residuos -> 403
+Get /residuos -> 401
+Post /pontos-coleta -> 201
+Delete /residuos/6aca95de6a44939a0f44b576 -> 409
+Post /coletas -> 409
+Get /pontos-coleta/6aca95df6a44939a0f44b578 -> 200
+Saldo preservado em 20 após rejeitar coleta de 50.
+Delete /pontos-coleta/6aca95df6a44939a0f44b578 -> 204
+Delete /residuos/6aca95de6a44939a0f44b576 -> 204
+Get /residuos/6aca95de6a44939a0f44b576 -> 404
+Validação aprovada. Registros temporários removidos.

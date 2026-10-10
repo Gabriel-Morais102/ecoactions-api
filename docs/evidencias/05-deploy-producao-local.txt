@@ -1,19 +1,17 @@
-DEPLOY LOCAL - PRODUÇÃO
-Data da validação: 2026-10-10 15:11:32 -03:00
-
-Serviço: ecoactions-api
-  Container: ecoactions-production-ecoactions-api-1
-  Imagem: ecoactions-api:local
-  Estado: running | Health: healthy
-  Portas: 0.0.0.0:8082->8080/tcp, [::]:8082->8080/tcp
-  Rede: ecoactions-production_ecoactions-network
-
-Serviço: mongo-db
-  Container: ecoactions-production-mongo-db-1
-  Imagem: mongo:7.0
-  Estado: running | Health: healthy
-  Portas: 0.0.0.0:27019->27017/tcp, [::]:27019->27017/tcp
-  Rede: ecoactions-production_ecoactions-network
-
-Health check http://localhost:8082/api/health
-{"timestamp":"2026-10-10T18:11:32.943866812Z","application":"ecoactions-api","status":"UP"}
+Verificação após o pipeline - 2026-10-10 16:52:03 -03:00
+Ambiente: production
+Imagem: ecoactions-api:e500df0e9b66cbb88a8895f9aedf5769a1fb4106
+ID: sha256:16af7791486b861064c129a27cf5bf42d22b06041174cc8ac174d60b9e2487be
+NAME                                     IMAGE                                                     COMMAND                  SERVICE          CREATED          STATUS                    PORTS
+ecoactions-production-ecoactions-api-1   ecoactions-api:e500df0e9b66cbb88a8895f9aedf5769a1fb4106   "java -jar app.jar"      ecoactions-api   47 seconds ago   Up 46 seconds (healthy)   0.0.0.0:8082->8080/tcp, [::]:8082->8080/tcp
+ecoactions-production-mongo-db-1         mongo:7.0                                                 "docker-entrypoint.s…"   mongo-db         21 minutes ago   Up 21 minutes (healthy)   127.0.0.1:27019->27017/tcp
+GET http://127.0.0.1:8082/api/health -> 200
+{"timestamp":"2026-10-10T19:52:04.538282612Z","application":"ecoactions-api","status":"UP"}
+GET http://127.0.0.1:8082/api/residuos -> 200 (10 registros)
+GET http://127.0.0.1:8082/api/pontos-coleta -> 200 (10 registros)
+GET http://127.0.0.1:8082/api/coletas -> 200 (10 registros)
+GET http://127.0.0.1:8082/api/destinacoes -> 200 (10 registros)
+GET http://127.0.0.1:8082/api/alertas -> 200 (10 registros)
+Smoke test aprovado.
+GET http://localhost:8082/api/health -> HTTP 200
+{"timestamp":"2026-10-10T19:52:04.997103333Z","application":"ecoactions-api","status":"UP"}

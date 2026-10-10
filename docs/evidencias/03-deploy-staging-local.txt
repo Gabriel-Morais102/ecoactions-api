@@ -1,19 +1,19 @@
-DEPLOY LOCAL - STAGING
-Data da validação: 2026-10-10 15:11:32 -03:00
-
-Serviço: ecoactions-api
-  Container: ecoactions-staging-ecoactions-api-1
-  Imagem: ecoactions-api:local
-  Estado: running | Health: healthy
-  Portas: 0.0.0.0:8081->8080/tcp, [::]:8081->8080/tcp
-  Rede: ecoactions-staging_ecoactions-network
-
-Serviço: mongo-db
-  Container: ecoactions-staging-mongo-db-1
-  Imagem: mongo:7.0
-  Estado: running | Health: healthy
-  Portas: 0.0.0.0:27018->27017/tcp, [::]:27018->27017/tcp
-  Rede: ecoactions-staging_ecoactions-network
-
-Health check http://localhost:8081/api/health
-{"timestamp":"2026-10-10T18:11:32.385073566Z","application":"ecoactions-api","status":"UP"}
+Verificação após o pipeline - 2026-10-10 16:52:01 -03:00
+Ambiente: staging
+Imagem: ecoactions-api:e500df0e9b66cbb88a8895f9aedf5769a1fb4106
+ID: sha256:16af7791486b861064c129a27cf5bf42d22b06041174cc8ac174d60b9e2487be
+NAME                                  IMAGE                                                     COMMAND                  SERVICE          CREATED              STATUS                        PORTS
+ecoactions-staging-ecoactions-api-1   ecoactions-api:e500df0e9b66cbb88a8895f9aedf5769a1fb4106   "java -jar app.jar"      ecoactions-api   About a minute ago   Up About a minute (healthy)   0.0.0.0:8081->8080/tcp, [::]:8081->8080/tcp
+ecoactions-staging-mongo-db-1         mongo:7.0                                                 "docker-entrypoint.s…"   mongo-db         21 minutes ago       Up 20 minutes (healthy)       127.0.0.1:27018->27017/tcp
+GET http://127.0.0.1:8081/api/health -> 200
+{"application":"ecoactions-api","timestamp":"2026-10-10T19:52:02.71929701Z","status":"UP"}
+GET http://127.0.0.1:8081/api/residuos -> 200 (10 registros)
+GET http://127.0.0.1:8081/api/pontos-coleta -> 200 (10 registros)
+GET http://127.0.0.1:8081/api/coletas -> 200 (10 registros)
+GET http://127.0.0.1:8081/api/destinacoes -> 200 (10 registros)
+GET http://127.0.0.1:8081/api/alertas -> 200 (10 registros)
+Staging: criação 201 e consulta 200 confirmadas no MongoDB.
+Staging: exclusão 204 do registro de teste confirmada.
+Smoke test aprovado.
+GET http://localhost:8081/api/health -> HTTP 200
+{"application":"ecoactions-api","timestamp":"2026-10-10T19:52:03.387321296Z","status":"UP"}

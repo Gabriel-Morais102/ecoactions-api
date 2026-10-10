@@ -1,11 +1,8 @@
-EVIDÊNCIA DA IMAGEM DOCKER - ECOACTIONS API
-Data da validação: 2026-10-10 15:11:31 -03:00
-
-Imagem: ecoactions-api:step8
-ID: sha256:428fe773edea0907ea744f34b27e94f8c9181b1ed51a63e5daae3a4f1f5f8459
-Criada em: 2026-10-10T17:51:20.520694287Z
-Sistema/arquitetura: linux/amd64
-Tamanho das camadas: 123394971 bytes
-Usuário de execução: spring:spring
-Health check: curl --fail --silent http://localhost:8080/api/health
-Build multi-stage: JDK 17 na compilação e JRE 17 na execução
+Imagem implantada - 2026-10-10 16:52:01 -03:00
+Tag: ecoactions-api:e500df0e9b66cbb88a8895f9aedf5769a1fb4106
+ID: sha256:16af7791486b861064c129a27cf5bf42d22b06041174cc8ac174d60b9e2487be
+Sistema: linux
+Arquitetura: amd64
+Usuario: spring:spring
+Tamanho (bytes): 301676853
+Healthcheck: CMD-SHELL curl --fail --silent --show-error --max-time 4 "http://localhost:${SERVER_PORT:-8080}/api/health" || exit 1

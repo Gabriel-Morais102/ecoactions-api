@@ -1,0 +1,147 @@
+﻿2026-10-10T19:50:56.1527712Z Current runner version: '2.338.0'
+2026-10-10T19:50:56.1535484Z Runner name: 'ecoactions-lab'
+2026-10-10T19:50:56.1536081Z Runner group name: 'Default'
+2026-10-10T19:50:56.1536804Z Machine name: 'DESKTOP-OV483UD'
+2026-10-10T19:50:56.1540029Z ##[group]GITHUB_TOKEN Permissions
+2026-10-10T19:50:56.1542143Z Contents: read
+2026-10-10T19:50:56.1542580Z Metadata: read
+2026-10-10T19:50:56.1542987Z ##[endgroup]
+2026-10-10T19:50:56.1544648Z Secret source: Actions
+2026-10-10T19:50:56.1545274Z Cache mode: write
+2026-10-10T19:50:56.1545768Z Prepare workflow directory
+2026-10-10T19:50:56.2553338Z Prepare all required actions
+2026-10-10T19:50:56.2593318Z Getting action download info
+2026-10-10T19:50:56.8514214Z Download action repository 'actions/checkout@v5' (SHA:fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09)
+2026-10-10T19:50:57.5597827Z Download action repository 'actions/download-artifact@v7' (SHA:37930b1c2abaa49bbe596cd826c3c89aef350131)
+2026-10-10T19:50:58.6653167Z Complete job name: Deploy em produção
+2026-10-10T19:50:58.7692149Z ##[group]Run actions/checkout@v5
+2026-10-10T19:50:58.7692964Z with:
+2026-10-10T19:50:58.7693223Z   persist-credentials: false
+2026-10-10T19:50:58.7693562Z   repository: Gabriel-Morais102/ecoactions-api
+2026-10-10T19:50:58.7696890Z   token: ***
+2026-10-10T19:50:58.7697084Z   ssh-strict: true
+2026-10-10T19:50:58.7697253Z   ssh-user: git
+2026-10-10T19:50:58.7697409Z   clean: true
+2026-10-10T19:50:58.7697589Z   sparse-checkout-cone-mode: true
+2026-10-10T19:50:58.7697794Z   fetch-depth: 1
+2026-10-10T19:50:58.7697960Z   fetch-tags: false
+2026-10-10T19:50:58.7698138Z   show-progress: true
+2026-10-10T19:50:58.7698321Z   lfs: false
+2026-10-10T19:50:58.7698475Z   submodules: false
+2026-10-10T19:50:58.7698647Z   set-safe-directory: true
+2026-10-10T19:50:58.7698847Z   allow-unsafe-pr-checkout: false
+2026-10-10T19:50:58.7699330Z env:
+2026-10-10T19:50:58.7699838Z   APP_IMAGE: ecoactions-api:e500df0e9b66cbb88a8895f9aedf5769a1fb4106
+2026-10-10T19:50:58.7700132Z ##[endgroup]
+2026-10-10T19:50:58.9954860Z Syncing repository: Gabriel-Morais102/ecoactions-api
+2026-10-10T19:50:58.9956310Z ##[group]Getting Git version info
+2026-10-10T19:50:58.9956869Z Working directory is 'C:\Users\gelm9\Downloads\ecoactions-api\ecoactions-api\.runner\_work\ecoactions-api\ecoactions-api'
+2026-10-10T19:50:59.0009579Z [command]"C:\Program Files\Git\cmd\git.exe" version
+2026-10-10T19:50:59.0590504Z git version 2.52.0.windows.1
+2026-10-10T19:50:59.0636667Z ##[endgroup]
+2026-10-10T19:50:59.0658763Z Temporarily overriding HOME='C:\Users\gelm9\Downloads\ecoactions-api\ecoactions-api\.runner\_work\_temp\b3146325-c36e-47a5-8c9a-a6d2f2c67dd4' before making global git config changes
+2026-10-10T19:50:59.0659604Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-10T19:50:59.0666541Z [command]"C:\Program Files\Git\cmd\git.exe" config --global --add safe.directory C:\Users\gelm9\Downloads\ecoactions-api\ecoactions-api\.runner\_work\ecoactions-api\ecoactions-api
+2026-10-10T19:50:59.1326349Z [command]"C:\Program Files\Git\cmd\git.exe" config --local --get remote.origin.url
+2026-10-10T19:50:59.1883073Z https://github.com/Gabriel-Morais102/ecoactions-api
+2026-10-10T19:50:59.1945280Z ##[group]Removing previously created refs, to avoid conflicts
+2026-10-10T19:50:59.1952793Z [command]"C:\Program Files\Git\cmd\git.exe" rev-parse --symbolic-full-name --verify --quiet HEAD
+2026-10-10T19:50:59.2542595Z refs/heads/main
+2026-10-10T19:50:59.2595542Z [command]"C:\Program Files\Git\cmd\git.exe" checkout --detach
+2026-10-10T19:50:59.3421703Z HEAD is now at e500df0 Atualiza Actions para Node 24 e fixa executor Ubuntu
+2026-10-10T19:50:59.4724742Z ##[endgroup]
+2026-10-10T19:50:59.4733004Z [command]"C:\Program Files\Git\cmd\git.exe" submodule status
+2026-10-10T19:51:00.9349244Z ##[group]Cleaning the repository
+2026-10-10T19:51:00.9358176Z [command]"C:\Program Files\Git\cmd\git.exe" clean -ffdx
+2026-10-10T19:51:01.0228245Z Removing ecoactions-api-image.tar
+2026-10-10T19:51:01.0300666Z [command]"C:\Program Files\Git\cmd\git.exe" reset --hard HEAD
+2026-10-10T19:51:01.1101653Z HEAD is now at e500df0 Atualiza Actions para Node 24 e fixa executor Ubuntu
+2026-10-10T19:51:01.1161357Z ##[endgroup]
+2026-10-10T19:51:01.1173811Z ##[group]Disabling automatic garbage collection
+2026-10-10T19:51:01.1184702Z [command]"C:\Program Files\Git\cmd\git.exe" config --local gc.auto 0
+2026-10-10T19:51:01.1993796Z ##[endgroup]
+2026-10-10T19:51:01.2012558Z ##[group]Setting up auth
+2026-10-10T19:51:01.2013150Z [command]"C:\Program Files\Git\cmd\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-10T19:51:01.2677976Z [command]"C:\Program Files\Git\cmd\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-10T19:51:03.1483789Z [command]"C:\Program Files\Git\cmd\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-10T19:51:03.2100373Z [command]"C:\Program Files\Git\cmd\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-10T19:51:05.0817052Z [command]"C:\Program Files\Git\cmd\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-10T19:51:05.1447760Z [command]"C:\Program Files\Git\cmd\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-10-10T19:51:06.8750091Z [command]"C:\Program Files\Git\cmd\git.exe" config --local http.https://github.com/.extraheader "AUTHORIZATION: basic ***"
+2026-10-10T19:51:06.9388767Z ##[endgroup]
+2026-10-10T19:51:06.9389171Z ##[group]Fetching the repository
+2026-10-10T19:51:06.9398311Z [command]"C:\Program Files\Git\cmd\git.exe" -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +e500df0e9b66cbb88a8895f9aedf5769a1fb4106:refs/remotes/origin/main
+2026-10-10T19:51:07.9301308Z ##[endgroup]
+2026-10-10T19:51:07.9301659Z ##[group]Determining the checkout info
+2026-10-10T19:51:07.9303028Z ##[endgroup]
+2026-10-10T19:51:07.9310567Z [command]"C:\Program Files\Git\cmd\git.exe" sparse-checkout disable
+2026-10-10T19:51:08.0023091Z [command]"C:\Program Files\Git\cmd\git.exe" config --local --unset-all extensions.worktreeConfig
+2026-10-10T19:51:08.0617709Z ##[group]Checking out the ref
+2026-10-10T19:51:08.0623740Z [command]"C:\Program Files\Git\cmd\git.exe" checkout --progress --force -B main refs/remotes/origin/main
+2026-10-10T19:51:08.1496437Z branch 'main' set up to track 'origin/main'.
+2026-10-10T19:51:08.1496790Z Your branch is up to date with 'origin/main'.
+2026-10-10T19:51:08.1506060Z Switched to and reset branch 'main'
+2026-10-10T19:51:08.1544602Z ##[endgroup]
+2026-10-10T19:51:08.2175815Z [command]"C:\Program Files\Git\cmd\git.exe" log -1 --format=%H
+2026-10-10T19:51:08.2733348Z e500df0e9b66cbb88a8895f9aedf5769a1fb4106
+2026-10-10T19:51:08.2784672Z ##[group]Removing auth
+2026-10-10T19:51:08.2792318Z [command]"C:\Program Files\Git\cmd\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-10T19:51:08.3415305Z [command]"C:\Program Files\Git\cmd\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-10T19:51:10.1755713Z [command]"C:\Program Files\Git\cmd\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-10T19:51:10.2344877Z http.https://github.com/.extraheader
+2026-10-10T19:51:10.2395965Z [command]"C:\Program Files\Git\cmd\git.exe" config --local --unset-all http.https://github.com/.extraheader
+2026-10-10T19:51:10.3065718Z [command]"C:\Program Files\Git\cmd\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-10T19:51:12.0803633Z [command]"C:\Program Files\Git\cmd\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-10T19:51:12.1415337Z [command]"C:\Program Files\Git\cmd\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-10-10T19:51:13.8758245Z ##[endgroup]
+2026-10-10T19:51:13.9369685Z ##[group]Run docker image inspect $env:APP_IMAGE *> $null
+2026-10-10T19:51:13.9370193Z [36;1mdocker image inspect $env:APP_IMAGE *> $null[0m
+2026-10-10T19:51:13.9370447Z [36;1m$available = $LASTEXITCODE -eq 0[0m
+2026-10-10T19:51:13.9370860Z [36;1m"available=$($available.ToString().ToLowerInvariant())" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8[0m
+2026-10-10T19:51:13.9371259Z [36;1mexit 0[0m
+2026-10-10T19:51:13.9388683Z shell: C:\Users\gelm9\Downloads\ecoactions-api\ecoactions-api\.runner\tools\pwsh\pwsh.EXE -command ". '{0}'"
+2026-10-10T19:51:13.9389364Z env:
+2026-10-10T19:51:13.9389693Z   APP_IMAGE: ecoactions-api:e500df0e9b66cbb88a8895f9aedf5769a1fb4106
+2026-10-10T19:51:13.9390109Z ##[endgroup]
+2026-10-10T19:51:14.9644454Z ##[group]Run ./scripts/deploy.ps1 -Environment production -Image $env:APP_IMAGE
+2026-10-10T19:51:14.9644954Z [36;1m./scripts/deploy.ps1 -Environment production -Image $env:APP_IMAGE[0m
+2026-10-10T19:51:14.9652168Z shell: C:\Users\gelm9\Downloads\ecoactions-api\ecoactions-api\.runner\tools\pwsh\pwsh.EXE -command ". '{0}'"
+2026-10-10T19:51:14.9652541Z env:
+2026-10-10T19:51:14.9652752Z   APP_IMAGE: ecoactions-api:e500df0e9b66cbb88a8895f9aedf5769a1fb4106
+2026-10-10T19:51:14.9653003Z ##[endgroup]
+2026-10-10T19:51:16.4717391Z  Container ecoactions-production-mongo-db-1 Running
+2026-10-10T19:51:16.4718209Z  Container ecoactions-production-ecoactions-api-1 Recreate
+2026-10-10T19:51:17.0152370Z  Container ecoactions-production-ecoactions-api-1 Recreated
+2026-10-10T19:51:17.0424936Z  Container ecoactions-production-mongo-db-1 Waiting
+2026-10-10T19:51:17.5470998Z  Container ecoactions-production-mongo-db-1 Healthy
+2026-10-10T19:51:17.5471809Z  Container ecoactions-production-ecoactions-api-1 Starting
+2026-10-10T19:51:17.7573423Z  Container ecoactions-production-ecoactions-api-1 Started
+2026-10-10T19:51:17.7574216Z  Container ecoactions-production-mongo-db-1 Waiting
+2026-10-10T19:51:17.7574864Z  Container ecoactions-production-ecoactions-api-1 Waiting
+2026-10-10T19:51:18.2620789Z  Container ecoactions-production-mongo-db-1 Healthy
+2026-10-10T19:51:23.2609180Z  Container ecoactions-production-ecoactions-api-1 Healthy
+2026-10-10T19:51:24.2545547Z GET http://127.0.0.1:8082/api/health -> 200
+2026-10-10T19:51:24.2629242Z {"timestamp":"2026-10-10T19:51:24.202317957Z","application":"ecoactions-api","status":"UP"}
+2026-10-10T19:51:24.4796227Z GET http://127.0.0.1:8082/api/residuos -> 200 (10 registros)
+2026-10-10T19:51:24.6613874Z GET http://127.0.0.1:8082/api/pontos-coleta -> 200 (10 registros)
+2026-10-10T19:51:24.8418934Z GET http://127.0.0.1:8082/api/coletas -> 200 (10 registros)
+2026-10-10T19:51:24.9963981Z GET http://127.0.0.1:8082/api/destinacoes -> 200 (10 registros)
+2026-10-10T19:51:25.0712842Z GET http://127.0.0.1:8082/api/alertas -> 200 (10 registros)
+2026-10-10T19:51:25.0732326Z Smoke test aprovado.
+2026-10-10T19:51:25.2669039Z NAME                                     IMAGE                                                     COMMAND                  SERVICE          CREATED          STATUS                    PORTS
+2026-10-10T19:51:25.2674098Z ecoactions-production-ecoactions-api-1   ecoactions-api:e500df0e9b66cbb88a8895f9aedf5769a1fb4106   "java -jar app.jar"      ecoactions-api   9 seconds ago    Up 7 seconds (healthy)    0.0.0.0:8082->8080/tcp, [::]:8082->8080/tcp
+2026-10-10T19:51:25.2675579Z ecoactions-production-mongo-db-1         mongo:7.0                                                 "docker-entrypoint.s…"   mongo-db         21 minutes ago   Up 20 minutes (healthy)   127.0.0.1:27019->27017/tcp
+2026-10-10T19:51:25.4860240Z Deploy de production concluído: ecoactions-api:e500df0e9b66cbb88a8895f9aedf5769a1fb4106. Serviços e volumes permanecem no host.
+2026-10-10T19:51:25.6147115Z Post job cleanup.
+2026-10-10T19:51:25.8326371Z [command]"C:\Program Files\Git\cmd\git.exe" version
+2026-10-10T19:51:25.8955107Z git version 2.52.0.windows.1
+2026-10-10T19:51:25.9031190Z Temporarily overriding HOME='C:\Users\gelm9\Downloads\ecoactions-api\ecoactions-api\.runner\_work\_temp\ac3f4e51-c490-42fd-8449-680dad3818ec' before making global git config changes
+2026-10-10T19:51:25.9032747Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-10T19:51:25.9034106Z [command]"C:\Program Files\Git\cmd\git.exe" config --global --add safe.directory C:\Users\gelm9\Downloads\ecoactions-api\ecoactions-api\.runner\_work\ecoactions-api\ecoactions-api
+2026-10-10T19:51:25.9685287Z [command]"C:\Program Files\Git\cmd\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-10T19:51:26.0322881Z [command]"C:\Program Files\Git\cmd\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-10T19:51:27.6400880Z [command]"C:\Program Files\Git\cmd\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-10T19:51:27.6980564Z [command]"C:\Program Files\Git\cmd\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-10T19:51:29.3200718Z [command]"C:\Program Files\Git\cmd\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-10T19:51:29.3801390Z [command]"C:\Program Files\Git\cmd\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-10-10T19:51:31.1088446Z Cleaning up orphan processes

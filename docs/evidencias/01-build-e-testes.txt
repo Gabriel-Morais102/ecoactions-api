@@ -1,82 +1,526 @@
-[INFO] Scanning for projects...
-[INFO] 
-[INFO] ---------------------< br.com.fiap:ecoactions-api >---------------------
-[INFO] Building  0.0.1-SNAPSHOT
-[INFO]   from pom.xml
-[INFO] --------------------------------[ jar ]---------------------------------
-[INFO] 
-[INFO] --- clean:3.4.1:clean (default-clean) @ ecoactions-api ---
-[INFO] Deleting C:\Users\gelm9\Downloads\ecoactions-api\ecoactions-api\target
-[INFO] 
-[INFO] --- resources:3.3.1:resources (default-resources) @ ecoactions-api ---
-[INFO] Copying 1 resource from src\main\resources to target\classes
-[INFO] Copying 0 resource from src\main\resources to target\classes
-[INFO] 
-[INFO] --- compiler:3.14.1:compile (default-compile) @ ecoactions-api ---
-[INFO] Recompiling the module because of changed source code.
-[INFO] Compiling 38 source files with javac [debug parameters release 17] to target\classes
-[INFO] 
-[INFO] --- resources:3.3.1:testResources (default-testResources) @ ecoactions-api ---
-[INFO] Copying 0 resource from src\test\resources to target\test-classes
-[INFO] 
-[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ ecoactions-api ---
-[INFO] Recompiling the module because of changed dependency.
-[INFO] Compiling 5 source files with javac [debug parameters release 17] to target\test-classes
-[INFO] 
-[INFO] --- surefire:3.5.5:test (default-test) @ ecoactions-api ---
-[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
-[INFO] 
-[INFO] -------------------------------------------------------
-[INFO]  T E S T S
-[INFO] -------------------------------------------------------
-[INFO] Running br.com.fiap.ecoactions_api.controller.HealthControllerTest
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.097 s -- in br.com.fiap.ecoactions_api.controller.HealthControllerTest
-[INFO] Running br.com.fiap.ecoactions_api.EcoactionsApiApplicationTests
-15:09:11.984 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [br.com.fiap.ecoactions_api.EcoactionsApiApplicationTests]: EcoactionsApiApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-15:09:12.103 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration br.com.fiap.ecoactions_api.EcoactionsApiApplication for test class br.com.fiap.ecoactions_api.EcoactionsApiApplicationTests
-15:09:12.248 [main] INFO org.springframework.boot.devtools.restart.RestartApplicationListener -- Restart disabled due to context in which it is running
+﻿2026-10-10T19:46:55.7038242Z Current runner version: '2.337.0'
+2026-10-10T19:46:55.7059864Z ##[group]Runner Image Provisioner
+2026-10-10T19:46:55.7060730Z Hosted Compute Agent
+2026-10-10T19:46:55.7061214Z Version: 20261002.596
+2026-10-10T19:46:55.7061780Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
+2026-10-10T19:46:55.7062373Z Build Date: 2026-10-02T22:28:27Z
+2026-10-10T19:46:55.7062951Z Worker ID: {d0e912c2-4f24-45dd-938e-b54f4fd6169c}
+2026-10-10T19:46:55.7063585Z Region: westus3
+2026-10-10T19:46:55.7064036Z Cloud: Azure
+2026-10-10T19:46:55.7064736Z ##[endgroup]
+2026-10-10T19:46:55.7065981Z ##[group]Operating System
+2026-10-10T19:46:55.7066551Z Ubuntu
+2026-10-10T19:46:55.7067058Z 24.04.5
+2026-10-10T19:46:55.7067517Z LTS
+2026-10-10T19:46:55.7067974Z ##[endgroup]
+2026-10-10T19:46:55.7068481Z ##[group]Runner Image
+2026-10-10T19:46:55.7068987Z Image: ubuntu-24.04
+2026-10-10T19:46:55.7069493Z Version: 20261004.327.1
+2026-10-10T19:46:55.7070567Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-10T19:46:55.7072206Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327
+2026-10-10T19:46:55.7073003Z ##[endgroup]
+2026-10-10T19:46:55.7073966Z ##[group]GITHUB_TOKEN Permissions
+2026-10-10T19:46:55.7075897Z Contents: read
+2026-10-10T19:46:55.7076503Z Metadata: read
+2026-10-10T19:46:55.7076964Z ##[endgroup]
+2026-10-10T19:46:55.7078774Z Secret source: Actions
+2026-10-10T19:46:55.7079533Z Cache mode: write
+2026-10-10T19:46:55.7080217Z Prepare workflow directory
+2026-10-10T19:46:55.7364372Z Prepare all required actions
+2026-10-10T19:46:55.7420041Z Getting action download info
+2026-10-10T19:46:56.0283659Z Download action repository 'actions/checkout@v5' (SHA:fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09)
+2026-10-10T19:46:56.1573162Z Download action repository 'actions/setup-java@v5' (SHA:b6effb05e454b25005698d916606bdc6ffcbf961)
+2026-10-10T19:46:57.0531844Z Download action repository 'actions/upload-artifact@v6' (SHA:b7c566a772e6b6bfb58ed0dc250532a479d7789f)
+2026-10-10T19:46:57.4355716Z Complete job name: Build e testes
+2026-10-10T19:46:57.5092222Z ##[group]Run actions/checkout@v5
+2026-10-10T19:46:57.5093332Z with:
+2026-10-10T19:46:57.5094038Z   persist-credentials: false
+2026-10-10T19:46:57.5095107Z   repository: Gabriel-Morais102/ecoactions-api
+2026-10-10T19:46:57.5101747Z   token: ***
+2026-10-10T19:46:57.5102446Z   ssh-strict: true
+2026-10-10T19:46:57.5103174Z   ssh-user: git
+2026-10-10T19:46:57.5103871Z   clean: true
+2026-10-10T19:46:57.5104757Z   sparse-checkout-cone-mode: true
+2026-10-10T19:46:57.5105626Z   fetch-depth: 1
+2026-10-10T19:46:57.5106334Z   fetch-tags: false
+2026-10-10T19:46:57.5107059Z   show-progress: true
+2026-10-10T19:46:57.5107803Z   lfs: false
+2026-10-10T19:46:57.5108494Z   submodules: false
+2026-10-10T19:46:57.5109233Z   set-safe-directory: true
+2026-10-10T19:46:57.5110068Z   allow-unsafe-pr-checkout: false
+2026-10-10T19:46:57.5111101Z ##[endgroup]
+2026-10-10T19:46:57.5972215Z Syncing repository: Gabriel-Morais102/ecoactions-api
+2026-10-10T19:46:57.5975222Z ##[group]Getting Git version info
+2026-10-10T19:46:57.5976598Z Working directory is '/home/runner/work/ecoactions-api/ecoactions-api'
+2026-10-10T19:46:57.5978438Z [command]/usr/bin/git version
+2026-10-10T19:46:57.6252741Z git version 2.55.0
+2026-10-10T19:46:57.6273632Z ##[endgroup]
+2026-10-10T19:46:57.6285742Z Temporarily overriding HOME='/home/runner/work/_temp/f5842030-130d-4296-87f4-14b6d079b179' before making global git config changes
+2026-10-10T19:46:57.6289175Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-10T19:46:57.6306732Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ecoactions-api/ecoactions-api
+2026-10-10T19:46:57.6486255Z Deleting the contents of '/home/runner/work/ecoactions-api/ecoactions-api'
+2026-10-10T19:46:57.6491711Z ##[group]Initializing the repository
+2026-10-10T19:46:57.6495892Z [command]/usr/bin/git init /home/runner/work/ecoactions-api/ecoactions-api
+2026-10-10T19:46:57.7584609Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-10T19:46:57.7590093Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-10T19:46:57.7593049Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-10T19:46:57.7595717Z hint: call:
+2026-10-10T19:46:57.7596953Z hint:
+2026-10-10T19:46:57.7598503Z hint: 	git config --global init.defaultBranch <name>
+2026-10-10T19:46:57.7600756Z hint:
+2026-10-10T19:46:57.7602382Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-10T19:46:57.7605355Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-10T19:46:57.7607741Z hint:
+2026-10-10T19:46:57.7609249Z hint: 	git branch -m <name>
+2026-10-10T19:46:57.7610850Z hint:
+2026-10-10T19:46:57.7612801Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-10T19:46:57.7616066Z Initialized empty Git repository in /home/runner/work/ecoactions-api/ecoactions-api/.git/
+2026-10-10T19:46:57.7621701Z [command]/usr/bin/git remote add origin https://github.com/Gabriel-Morais102/ecoactions-api
+2026-10-10T19:46:57.7971615Z ##[endgroup]
+2026-10-10T19:46:57.7973474Z ##[group]Disabling automatic garbage collection
+2026-10-10T19:46:57.7975341Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-10T19:46:57.8678066Z ##[endgroup]
+2026-10-10T19:46:57.8679895Z ##[group]Setting up auth
+2026-10-10T19:46:57.8684788Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-10T19:46:57.8719840Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-10T19:46:57.9244157Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-10T19:46:57.9277597Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-10T19:46:57.9471337Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-10T19:46:57.9506655Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-10T19:46:57.9712999Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-10T19:46:57.9751015Z ##[endgroup]
+2026-10-10T19:46:57.9752347Z ##[group]Fetching the repository
+2026-10-10T19:46:57.9759754Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +e500df0e9b66cbb88a8895f9aedf5769a1fb4106:refs/remotes/origin/main
+2026-10-10T19:46:59.2018559Z From https://github.com/Gabriel-Morais102/ecoactions-api
+2026-10-10T19:46:59.2019989Z  * [new ref]         e500df0e9b66cbb88a8895f9aedf5769a1fb4106 -> origin/main
+2026-10-10T19:46:59.2022279Z ##[endgroup]
+2026-10-10T19:46:59.2022905Z ##[group]Determining the checkout info
+2026-10-10T19:46:59.2023605Z ##[endgroup]
+2026-10-10T19:46:59.2028867Z [command]/usr/bin/git sparse-checkout disable
+2026-10-10T19:46:59.2080383Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-10T19:46:59.2110179Z ##[group]Checking out the ref
+2026-10-10T19:46:59.2120583Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-10-10T19:46:59.2339893Z Switched to a new branch 'main'
+2026-10-10T19:46:59.2344867Z branch 'main' set up to track 'origin/main'.
+2026-10-10T19:46:59.2349456Z ##[endgroup]
+2026-10-10T19:46:59.2392071Z [command]/usr/bin/git log -1 --format=%H
+2026-10-10T19:46:59.2415674Z e500df0e9b66cbb88a8895f9aedf5769a1fb4106
+2026-10-10T19:46:59.2423456Z ##[group]Removing auth
+2026-10-10T19:46:59.2426921Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-10T19:46:59.2456739Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-10T19:46:59.2649992Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-10T19:46:59.2675273Z http.https://github.com/.extraheader
+2026-10-10T19:46:59.2681006Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-10T19:46:59.2710860Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-10T19:46:59.2899459Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-10T19:46:59.2926783Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-10T19:46:59.3115277Z ##[endgroup]
+2026-10-10T19:46:59.3429335Z ##[group]Run actions/setup-java@v5
+2026-10-10T19:46:59.3429641Z with:
+2026-10-10T19:46:59.3429852Z   distribution: temurin
+2026-10-10T19:46:59.3430079Z   java-version: 17
+2026-10-10T19:46:59.3430307Z   cache: maven
+2026-10-10T19:46:59.3430548Z   java-package: jdk
+2026-10-10T19:46:59.3430792Z   check-latest: false
+2026-10-10T19:46:59.3431011Z   set-default: true
+2026-10-10T19:46:59.3431228Z   verify-signature: false
+2026-10-10T19:46:59.3431461Z   server-id: github
+2026-10-10T19:46:59.3431680Z   server-username: GITHUB_ACTOR
+2026-10-10T19:46:59.3431933Z   server-password: GITHUB_TOKEN
+2026-10-10T19:46:59.3432182Z   overwrite-settings: true
+2026-10-10T19:46:59.3432414Z   job-status: success
+2026-10-10T19:46:59.3434559Z   token: ***
+2026-10-10T19:46:59.3434800Z   show-download-progress: false
+2026-10-10T19:46:59.3435058Z ##[endgroup]
+2026-10-10T19:46:59.4696078Z ##[group]Installed distributions
+2026-10-10T19:46:59.4749628Z Resolved Java 17.0.20+1 from tool-cache
+2026-10-10T19:46:59.4750169Z Setting Java 17.0.20+1 as the default
+2026-10-10T19:46:59.4758312Z Creating toolchains.xml for JDK version 17 from temurin
+2026-10-10T19:46:59.4812446Z Writing to /home/runner/.m2/toolchains.xml
+2026-10-10T19:46:59.4812830Z
+2026-10-10T19:46:59.4812999Z Java configuration:
+2026-10-10T19:46:59.4813275Z   Distribution: temurin
+2026-10-10T19:46:59.4813549Z   Version: 17.0.20+1
+2026-10-10T19:46:59.4814193Z   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-10-10T19:46:59.4814694Z
+2026-10-10T19:46:59.4815063Z ##[endgroup]
+2026-10-10T19:46:59.4847725Z Creating settings.xml with server-id: github
+2026-10-10T19:46:59.4848334Z Writing to /home/runner/.m2/settings.xml
+2026-10-10T19:46:59.4849403Z Configured MAVEN_ARGS to include -ntp to suppress Maven transfer progress logs. Set 'show-download-progress: true' to keep the download progress output.
+2026-10-10T19:46:59.7129256Z maven cache is not found
+2026-10-10T19:46:59.9325497Z ##[group]Run chmod +x mvnw
+2026-10-10T19:46:59.9325787Z [36;1mchmod +x mvnw[0m
+2026-10-10T19:46:59.9537179Z shell: /usr/bin/bash -e {0}
+2026-10-10T19:46:59.9537420Z env:
+2026-10-10T19:46:59.9537691Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-10-10T19:46:59.9538070Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-10-10T19:46:59.9538379Z   MAVEN_ARGS: -ntp
+2026-10-10T19:46:59.9538555Z ##[endgroup]
+2026-10-10T19:46:59.9674304Z ##[group]Run ./mvnw --batch-mode --no-transfer-progress clean verify
+2026-10-10T19:46:59.9674956Z [36;1m./mvnw --batch-mode --no-transfer-progress clean verify[0m
+2026-10-10T19:46:59.9732328Z shell: /usr/bin/bash -e {0}
+2026-10-10T19:46:59.9732545Z env:
+2026-10-10T19:46:59.9732801Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-10-10T19:46:59.9733189Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-10-10T19:46:59.9733494Z   MAVEN_ARGS: -ntp
+2026-10-10T19:46:59.9733666Z ##[endgroup]
+2026-10-10T19:47:01.6583945Z [INFO] Scanning for projects...
+2026-10-10T19:47:04.7355362Z [INFO]
+2026-10-10T19:47:04.7356082Z [INFO] ---------------------< br.com.fiap:ecoactions-api >---------------------
+2026-10-10T19:47:04.7356535Z [INFO] Building  0.0.1-SNAPSHOT
+2026-10-10T19:47:04.7362803Z [INFO]   from pom.xml
+2026-10-10T19:47:04.7363296Z [INFO] --------------------------------[ jar ]---------------------------------
+2026-10-10T19:47:09.6745888Z [INFO]
+2026-10-10T19:47:09.6746401Z [INFO] --- clean:3.4.1:clean (default-clean) @ ecoactions-api ---
+2026-10-10T19:47:09.8210226Z [INFO]
+2026-10-10T19:47:09.8234315Z [INFO] --- resources:3.3.1:resources (default-resources) @ ecoactions-api ---
+2026-10-10T19:47:10.6298055Z [INFO] Copying 1 resource from src/main/resources to target/classes
+2026-10-10T19:47:10.6383233Z [INFO] Copying 0 resource from src/main/resources to target/classes
+2026-10-10T19:47:10.6410936Z [INFO]
+2026-10-10T19:47:10.6415337Z [INFO] --- compiler:3.14.1:compile (default-compile) @ ecoactions-api ---
+2026-10-10T19:47:11.3594879Z [INFO] Recompiling the module because of changed source code.
+2026-10-10T19:47:11.3693938Z [INFO] Compiling 40 source files with javac [debug parameters release 17] to target/classes
+2026-10-10T19:47:13.1920757Z [INFO]
+2026-10-10T19:47:13.1943272Z [INFO] --- resources:3.3.1:testResources (default-testResources) @ ecoactions-api ---
+2026-10-10T19:47:13.1961306Z [INFO] skip non existing resourceDirectory /home/runner/work/ecoactions-api/ecoactions-api/src/test/resources
+2026-10-10T19:47:13.1965551Z [INFO]
+2026-10-10T19:47:13.1966258Z [INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ ecoactions-api ---
+2026-10-10T19:47:13.2016793Z [INFO] Recompiling the module because of changed dependency.
+2026-10-10T19:47:13.2019834Z [INFO] Compiling 8 source files with javac [debug parameters release 17] to target/test-classes
+2026-10-10T19:47:13.8644590Z [INFO]
+2026-10-10T19:47:13.8647157Z [INFO] --- surefire:3.5.5:test (default-test) @ ecoactions-api ---
+2026-10-10T19:47:14.8081705Z [INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+2026-10-10T19:47:15.0487979Z [INFO]
+2026-10-10T19:47:15.0488391Z [INFO] -------------------------------------------------------
+2026-10-10T19:47:15.0488797Z [INFO]  T E S T S
+2026-10-10T19:47:15.0489126Z [INFO] -------------------------------------------------------
+2026-10-10T19:47:15.7935796Z [INFO] Running br.com.fiap.ecoactions_api.EcoactionsApiApplicationTests
+2026-10-10T19:47:15.9231710Z 19:47:15.887 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [br.com.fiap.ecoactions_api.EcoactionsApiApplicationTests]: EcoactionsApiApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-10T19:47:16.0212470Z 19:47:15.967 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration br.com.fiap.ecoactions_api.EcoactionsApiApplication for test class br.com.fiap.ecoactions_api.EcoactionsApiApplicationTests
+2026-10-10T19:47:16.1213381Z 19:47:16.080 [main] INFO org.springframework.boot.devtools.restart.RestartApplicationListener -- Restart disabled due to context in which it is running
+2026-10-10T19:47:16.3223710Z
+2026-10-10T19:47:16.3224744Z   .   ____          _            __ _ _
+2026-10-10T19:47:16.3225986Z  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+2026-10-10T19:47:16.3226705Z ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+2026-10-10T19:47:16.3236033Z  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+2026-10-10T19:47:16.3236638Z   '  |____| .__|_| |_|_| |_\__, | / / / /
+2026-10-10T19:47:16.3237186Z  =========|_|==============|___/=/_/_/_/
+2026-10-10T19:47:16.3237624Z
+2026-10-10T19:47:16.3238105Z  :: Spring Boot ::               (v3.5.14)
+2026-10-10T19:47:16.3238509Z
+2026-10-10T19:47:16.4225067Z 2026-10-10T19:47:16.344Z  INFO 2383 --- [ecoactions-api] [           main] b.c.f.e.EcoactionsApiApplicationTests    : Starting EcoactionsApiApplicationTests using Java 17.0.20.1 with PID 2383 (started by runner in /home/runner/work/ecoactions-api/ecoactions-api)
+2026-10-10T19:47:16.4228548Z 2026-10-10T19:47:16.345Z  INFO 2383 --- [ecoactions-api] [           main] b.c.f.e.EcoactionsApiApplicationTests    : No active profile set, falling back to 1 default profile: "default"
+2026-10-10T19:47:17.2318083Z OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+2026-10-10T19:47:18.4406975Z 2026-10-10T19:47:18.380Z  INFO 2383 --- [ecoactions-api] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-10-10T19:47:18.8638451Z 2026-10-10T19:47:18.843Z  INFO 2383 --- [ecoactions-api] [           main] b.c.f.e.EcoactionsApiApplicationTests    : Started EcoactionsApiApplicationTests in 2.774 seconds (process running for 3.748)
+2026-10-10T19:47:18.9329342Z [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.102 s -- in br.com.fiap.ecoactions_api.EcoactionsApiApplicationTests
+2026-10-10T19:47:18.9354964Z [INFO] Running br.com.fiap.ecoactions_api.service.ResiduoServiceTest
+2026-10-10T19:47:19.0145923Z [INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.101 s -- in br.com.fiap.ecoactions_api.service.ResiduoServiceTest
+2026-10-10T19:47:19.0188788Z [INFO] Running br.com.fiap.ecoactions_api.service.AlertaServiceTest
+2026-10-10T19:47:19.1095739Z [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.092 s -- in br.com.fiap.ecoactions_api.service.AlertaServiceTest
+2026-10-10T19:47:19.1135236Z [INFO] Running br.com.fiap.ecoactions_api.service.ColetaServiceTest
+2026-10-10T19:47:19.1501416Z [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.031 s -- in br.com.fiap.ecoactions_api.service.ColetaServiceTest
+2026-10-10T19:47:19.1525644Z [INFO] Running br.com.fiap.ecoactions_api.service.PontoColetaServiceTest
+2026-10-10T19:47:19.2072779Z [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.054 s -- in br.com.fiap.ecoactions_api.service.PontoColetaServiceTest
+2026-10-10T19:47:19.2105109Z [INFO] Running br.com.fiap.ecoactions_api.controller.RequestValidationTest
+2026-10-10T19:47:19.3607053Z 2026-10-10T19:47:19.211Z  INFO 2383 --- [ecoactions-api] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [br.com.fiap.ecoactions_api.controller.RequestValidationTest]: RequestValidationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-10T19:47:19.3613875Z 2026-10-10T19:47:19.245Z  INFO 2383 --- [ecoactions-api] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration br.com.fiap.ecoactions_api.EcoactionsApiApplication for test class br.com.fiap.ecoactions_api.controller.RequestValidationTest
+2026-10-10T19:47:19.3616188Z 2026-10-10T19:47:19.272Z  INFO 2383 --- [ecoactions-api] [           main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+2026-10-10T19:47:19.3617042Z
+2026-10-10T19:47:19.3617270Z   .   ____          _            __ _ _
+2026-10-10T19:47:19.3617722Z  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+2026-10-10T19:47:19.3618160Z ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+2026-10-10T19:47:19.3619014Z  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+2026-10-10T19:47:19.3619458Z   '  |____| .__|_| |_|_| |_\__, | / / / /
+2026-10-10T19:47:19.3619885Z  =========|_|==============|___/=/_/_/_/
+2026-10-10T19:47:19.3620194Z
+2026-10-10T19:47:19.3620520Z  :: Spring Boot ::               (v3.5.14)
+2026-10-10T19:47:19.3620841Z
+2026-10-10T19:47:19.3621885Z 2026-10-10T19:47:19.306Z  INFO 2383 --- [ecoactions-api] [           main] b.c.f.e.c.RequestValidationTest          : Starting RequestValidationTest using Java 17.0.20.1 with PID 2383 (started by runner in /home/runner/work/ecoactions-api/ecoactions-api)
+2026-10-10T19:47:19.3624020Z 2026-10-10T19:47:19.306Z  INFO 2383 --- [ecoactions-api] [           main] b.c.f.e.c.RequestValidationTest          : No active profile set, falling back to 1 default profile: "default"
+2026-10-10T19:47:19.7607529Z 2026-10-10T19:47:19.707Z  INFO 2383 --- [ecoactions-api] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-10-10T19:47:19.8567100Z 2026-10-10T19:47:19.842Z  INFO 2383 --- [ecoactions-api] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-10-10T19:47:19.8597068Z 2026-10-10T19:47:19.843Z  INFO 2383 --- [ecoactions-api] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-10T19:47:19.8599624Z 2026-10-10T19:47:19.844Z  INFO 2383 --- [ecoactions-api] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-10-10T19:47:19.8603708Z 2026-10-10T19:47:19.853Z  INFO 2383 --- [ecoactions-api] [           main] b.c.f.e.c.RequestValidationTest          : Started RequestValidationTest in 0.581 seconds (process running for 4.758)
+2026-10-10T19:47:20.0958284Z [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.887 s -- in br.com.fiap.ecoactions_api.controller.RequestValidationTest
+2026-10-10T19:47:20.0975829Z [INFO] Running br.com.fiap.ecoactions_api.controller.ResiduoControllerTest
+2026-10-10T19:47:20.1622984Z 2026-10-10T19:47:20.093Z  INFO 2383 --- [ecoactions-api] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [br.com.fiap.ecoactions_api.controller.ResiduoControllerTest]: ResiduoControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-10T19:47:20.1626883Z 2026-10-10T19:47:20.102Z  INFO 2383 --- [ecoactions-api] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration br.com.fiap.ecoactions_api.EcoactionsApiApplication for test class br.com.fiap.ecoactions_api.controller.ResiduoControllerTest
+2026-10-10T19:47:20.1629032Z 2026-10-10T19:47:20.105Z  INFO 2383 --- [ecoactions-api] [           main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+2026-10-10T19:47:20.1629918Z
+2026-10-10T19:47:20.1630251Z   .   ____          _            __ _ _
+2026-10-10T19:47:20.1630741Z  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+2026-10-10T19:47:20.1631203Z ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+2026-10-10T19:47:20.1631668Z  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+2026-10-10T19:47:20.1632133Z   '  |____| .__|_| |_|_| |_\__, | / / / /
+2026-10-10T19:47:20.1632598Z  =========|_|==============|___/=/_/_/_/
+2026-10-10T19:47:20.1632962Z
+2026-10-10T19:47:20.1633308Z  :: Spring Boot ::               (v3.5.14)
+2026-10-10T19:47:20.1633672Z
+2026-10-10T19:47:20.1634878Z 2026-10-10T19:47:20.121Z  INFO 2383 --- [ecoactions-api] [           main] b.c.f.e.c.ResiduoControllerTest          : Starting ResiduoControllerTest using Java 17.0.20.1 with PID 2383 (started by runner in /home/runner/work/ecoactions-api/ecoactions-api)
+2026-10-10T19:47:20.1637160Z 2026-10-10T19:47:20.122Z  INFO 2383 --- [ecoactions-api] [           main] b.c.f.e.c.ResiduoControllerTest          : No active profile set, falling back to 1 default profile: "default"
+2026-10-10T19:47:20.4634111Z 2026-10-10T19:47:20.408Z  INFO 2383 --- [ecoactions-api] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-10-10T19:47:20.4769202Z 2026-10-10T19:47:20.467Z  INFO 2383 --- [ecoactions-api] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-10-10T19:47:20.4776425Z 2026-10-10T19:47:20.467Z  INFO 2383 --- [ecoactions-api] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-10T19:47:20.4782262Z 2026-10-10T19:47:20.468Z  INFO 2383 --- [ecoactions-api] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-10-10T19:47:20.4783800Z 2026-10-10T19:47:20.474Z  INFO 2383 --- [ecoactions-api] [           main] b.c.f.e.c.ResiduoControllerTest          : Started ResiduoControllerTest in 0.369 seconds (process running for 5.379)
+2026-10-10T19:47:20.9446719Z 2026-10-10T19:47:20.934Z ERROR 2383 --- [ecoactions-api] [           main] b.c.f.e.e.GlobalExceptionHandler         : Erro inesperado ao processar GET /api/residuos
+2026-10-10T19:47:20.9456939Z
+2026-10-10T19:47:20.9457485Z java.lang.IllegalStateException: Detalhe privado da falha
+2026-10-10T19:47:20.9458397Z 	at br.com.fiap.ecoactions_api.service.ResiduoService.listar(ResiduoService.java:23) ~[classes/:na]
+2026-10-10T19:47:20.9459525Z 	at br.com.fiap.ecoactions_api.controller.ResiduoController.listar(ResiduoController.java:30) ~[classes/:na]
+2026-10-10T19:47:20.9460651Z 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+2026-10-10T19:47:20.9461752Z 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+2026-10-10T19:47:20.9463015Z 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+2026-10-10T19:47:20.9464074Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+2026-10-10T19:47:20.9465433Z 	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258) ~[spring-web-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9467078Z 	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191) ~[spring-web-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9480584Z 	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9483857Z 	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991) ~[spring-webmvc-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9486220Z 	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896) ~[spring-webmvc-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9495617Z 	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9497210Z 	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9498574Z 	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9499877Z 	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9501109Z 	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903) ~[spring-webmvc-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9502280Z 	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564) ~[tomcat-embed-core-10.1.54.jar:6.0]
+2026-10-10T19:47:20.9506371Z 	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9508061Z 	at org.springframework.test.web.servlet.TestDispatcherServlet.service(TestDispatcherServlet.java:72) ~[spring-test-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9509373Z 	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.54.jar:6.0]
+2026-10-10T19:47:20.9510648Z 	at org.springframework.mock.web.MockFilterChain$ServletFilterProxy.doFilter(MockFilterChain.java:165) ~[spring-test-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9511918Z 	at org.springframework.mock.web.MockFilterChain.doFilter(MockFilterChain.java:132) ~[spring-test-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9513447Z 	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108) ~[spring-web-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9515074Z 	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108) ~[spring-web-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9516666Z 	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231) ~[spring-security-web-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9518366Z 	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:370) ~[spring-security-web-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9520070Z 	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:101) ~[spring-security-web-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9521912Z 	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379) ~[spring-security-web-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9523678Z 	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:125) ~[spring-security-web-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9525700Z 	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119) ~[spring-security-web-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9527427Z 	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379) ~[spring-security-web-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9529196Z 	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100) ~[spring-security-web-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9530999Z 	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379) ~[spring-security-web-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9532852Z 	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179) ~[spring-security-web-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9534846Z 	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379) ~[spring-security-web-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9536562Z 	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9538315Z 	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379) ~[spring-security-web-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9540166Z 	at org.springframework.security.web.authentication.www.BasicAuthenticationFilter.doFilterInternal(BasicAuthenticationFilter.java:213) ~[spring-security-web-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9541892Z 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9543434Z 	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379) ~[spring-security-web-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9545362Z 	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107) ~[spring-security-web-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9546999Z 	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93) ~[spring-security-web-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9548609Z 	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379) ~[spring-security-web-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9550269Z 	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9552137Z 	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9553735Z 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9555427Z 	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379) ~[spring-security-web-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9557229Z 	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9559077Z 	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9560837Z 	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379) ~[spring-security-web-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9562790Z 	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9564732Z 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9566259Z 	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379) ~[spring-security-web-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9576442Z 	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9578153Z 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9579686Z 	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379) ~[spring-security-web-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9581318Z 	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233) ~[spring-security-web-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9582786Z 	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191) ~[spring-security-web-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9584300Z 	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9585926Z 	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52) ~[spring-web-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9587412Z 	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9588772Z 	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9590628Z 	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:319) ~[spring-security-config-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9592650Z 	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9594668Z 	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$4(HandlerMappingIntrospector.java:267) ~[spring-webmvc-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9596399Z 	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9597791Z 	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9599696Z 	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:240) ~[spring-security-config-6.5.10.jar:6.5.10]
+2026-10-10T19:47:20.9601853Z 	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362) ~[spring-web-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9603379Z 	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278) ~[spring-web-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9605054Z 	at org.springframework.test.web.servlet.setup.MockMvcFilterDecorator.doFilter(MockMvcFilterDecorator.java:162) ~[spring-test-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9606534Z 	at org.springframework.mock.web.MockFilterChain.doFilter(MockFilterChain.java:132) ~[spring-test-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9607943Z 	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9609586Z 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9613124Z 	at org.springframework.test.web.servlet.setup.MockMvcFilterDecorator.doFilter(MockMvcFilterDecorator.java:162) ~[spring-test-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9614809Z 	at org.springframework.mock.web.MockFilterChain.doFilter(MockFilterChain.java:132) ~[spring-test-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9616255Z 	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9617704Z 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9619242Z 	at org.springframework.test.web.servlet.setup.MockMvcFilterDecorator.doFilter(MockMvcFilterDecorator.java:162) ~[spring-test-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9620712Z 	at org.springframework.mock.web.MockFilterChain.doFilter(MockFilterChain.java:132) ~[spring-test-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9622241Z 	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9623788Z 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9625490Z 	at org.springframework.test.web.servlet.setup.MockMvcFilterDecorator.doFilter(MockMvcFilterDecorator.java:162) ~[spring-test-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9627215Z 	at org.springframework.mock.web.MockFilterChain.doFilter(MockFilterChain.java:132) ~[spring-test-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9628718Z 	at org.springframework.test.web.servlet.MockMvc.perform(MockMvc.java:201) ~[spring-test-6.2.18.jar:6.2.18]
+2026-10-10T19:47:20.9630388Z 	at br.com.fiap.ecoactions_api.controller.ResiduoControllerTest.deveRetornar500SemExporDetalhesDeErroInesperado(ResiduoControllerTest.java:175) ~[test-classes/:na]
+2026-10-10T19:47:20.9631881Z 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+2026-10-10T19:47:20.9633019Z 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+2026-10-10T19:47:20.9634305Z 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+2026-10-10T19:47:20.9635679Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+2026-10-10T19:47:20.9636871Z 	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:775) ~[junit-platform-commons-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9638375Z 	at org.junit.platform.commons.support.ReflectionSupport.invokeMethod(ReflectionSupport.java:479) ~[junit-platform-commons-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9639853Z 	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+2026-10-10T19:47:20.9641726Z 	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+2026-10-10T19:47:20.9645925Z 	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:161) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+2026-10-10T19:47:20.9655858Z 	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:152) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+2026-10-10T19:47:20.9657380Z 	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:91) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+2026-10-10T19:47:20.9659252Z 	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:112) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+2026-10-10T19:47:20.9661249Z 	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:94) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+2026-10-10T19:47:20.9663087Z 	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+2026-10-10T19:47:20.9664981Z 	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+2026-10-10T19:47:20.9666638Z 	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+2026-10-10T19:47:20.9668324Z 	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+2026-10-10T19:47:20.9670018Z 	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:93) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+2026-10-10T19:47:20.9671827Z 	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:87) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+2026-10-10T19:47:20.9673667Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:216) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+2026-10-10T19:47:20.9675562Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9677334Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:212) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+2026-10-10T19:47:20.9679116Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:137) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+2026-10-10T19:47:20.9680824Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69) ~[junit-jupiter-engine-5.12.2.jar:5.12.2]
+2026-10-10T19:47:20.9682552Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:156) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9684716Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9686474Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9687999Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9689403Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9691064Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9692841Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9694526Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9695670Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) ~[na:na]
+2026-10-10T19:47:20.9697191Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9699169Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9700773Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9702428Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9703881Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9705451Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9707062Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9708677Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9710236Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9711323Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) ~[na:na]
+2026-10-10T19:47:20.9712885Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9714984Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9716642Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9718252Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9719729Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9721182Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9723114Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9724872Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9726364Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9728215Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9730414Z 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9732204Z 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54) ~[junit-platform-engine-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9734034Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:201) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9735889Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:170) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9737641Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:94) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9739428Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:59) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9741316Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:142) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9743169Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:58) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9744845Z 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9746228Z 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9747652Z 	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9749156Z 	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$1(InterceptingLauncher.java:39) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9750990Z 	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9752875Z 	at org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:38) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9754347Z 	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47) ~[junit-platform-launcher-1.12.2.jar:1.12.2]
+2026-10-10T19:47:20.9756105Z 	at org.apache.maven.surefire.junitplatform.LauncherAdapter.executeWithoutCancellationToken(LauncherAdapter.java:60) ~[surefire-junit-platform-3.5.5.jar:3.5.5]
+2026-10-10T19:47:20.9757754Z 	at org.apache.maven.surefire.junitplatform.LauncherAdapter.execute(LauncherAdapter.java:52) ~[surefire-junit-platform-3.5.5.jar:3.5.5]
+2026-10-10T19:47:20.9759322Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:203) ~[surefire-junit-platform-3.5.5.jar:3.5.5]
+2026-10-10T19:47:20.9761269Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:168) ~[surefire-junit-platform-3.5.5.jar:3.5.5]
+2026-10-10T19:47:20.9762955Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:136) ~[surefire-junit-platform-3.5.5.jar:3.5.5]
+2026-10-10T19:47:20.9764560Z 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) ~[surefire-booter-3.5.5.jar:3.5.5]
+2026-10-10T19:47:20.9765848Z 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) ~[surefire-booter-3.5.5.jar:3.5.5]
+2026-10-10T19:47:20.9767042Z 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) ~[surefire-booter-3.5.5.jar:3.5.5]
+2026-10-10T19:47:20.9768501Z 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) ~[surefire-booter-3.5.5.jar:3.5.5]
+2026-10-10T19:47:20.9769271Z
+2026-10-10T19:47:21.7047411Z [INFO] Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.596 s -- in br.com.fiap.ecoactions_api.controller.ResiduoControllerTest
+2026-10-10T19:47:21.7085181Z [INFO] Running br.com.fiap.ecoactions_api.controller.HealthControllerTest
+2026-10-10T19:47:21.7691942Z 2026-10-10T19:47:21.687Z  INFO 2383 --- [ecoactions-api] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [br.com.fiap.ecoactions_api.controller.HealthControllerTest]: HealthControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-10T19:47:21.7716066Z 2026-10-10T19:47:21.692Z  INFO 2383 --- [ecoactions-api] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration br.com.fiap.ecoactions_api.EcoactionsApiApplication for test class br.com.fiap.ecoactions_api.controller.HealthControllerTest
+2026-10-10T19:47:21.7724334Z 2026-10-10T19:47:21.695Z  INFO 2383 --- [ecoactions-api] [           main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+2026-10-10T19:47:21.7726671Z
+2026-10-10T19:47:21.7727117Z   .   ____          _            __ _ _
+2026-10-10T19:47:21.7727612Z  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+2026-10-10T19:47:21.7728087Z ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+2026-10-10T19:47:21.7728557Z  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+2026-10-10T19:47:21.7729023Z   '  |____| .__|_| |_|_| |_\__, | / / / /
+2026-10-10T19:47:21.7729511Z  =========|_|==============|___/=/_/_/_/
+2026-10-10T19:47:21.7729863Z
+2026-10-10T19:47:21.7730223Z  :: Spring Boot ::               (v3.5.14)
+2026-10-10T19:47:21.7730638Z
+2026-10-10T19:47:21.7731753Z 2026-10-10T19:47:21.709Z  INFO 2383 --- [ecoactions-api] [           main] b.c.f.e.controller.HealthControllerTest  : Starting HealthControllerTest using Java 17.0.20.1 with PID 2383 (started by runner in /home/runner/work/ecoactions-api/ecoactions-api)
+2026-10-10T19:47:21.7733714Z 2026-10-10T19:47:21.709Z  INFO 2383 --- [ecoactions-api] [           main] b.c.f.e.controller.HealthControllerTest  : No active profile set, falling back to 1 default profile: "default"
+2026-10-10T19:47:21.9671231Z 2026-10-10T19:47:21.955Z  INFO 2383 --- [ecoactions-api] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-10-10T19:47:22.0126194Z 2026-10-10T19:47:22.004Z  INFO 2383 --- [ecoactions-api] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-10-10T19:47:22.0136927Z 2026-10-10T19:47:22.004Z  INFO 2383 --- [ecoactions-api] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-10T19:47:22.0141894Z 2026-10-10T19:47:22.005Z  INFO 2383 --- [ecoactions-api] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-10-10T19:47:22.0143529Z 2026-10-10T19:47:22.009Z  INFO 2383 --- [ecoactions-api] [           main] b.c.f.e.controller.HealthControllerTest  : Started HealthControllerTest in 0.315 seconds (process running for 6.915)
+2026-10-10T19:47:22.0646513Z [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.362 s -- in br.com.fiap.ecoactions_api.controller.HealthControllerTest
+2026-10-10T19:47:22.1086419Z [INFO]
+2026-10-10T19:47:22.1086715Z [INFO] Results:
+2026-10-10T19:47:22.1086969Z [INFO]
+2026-10-10T19:47:22.1090734Z [INFO] Tests run: 33, Failures: 0, Errors: 0, Skipped: 0
+2026-10-10T19:47:22.1091090Z [INFO]
+2026-10-10T19:47:22.1112535Z [INFO]
+2026-10-10T19:47:22.1112889Z [INFO] --- jar:3.4.2:jar (default-jar) @ ecoactions-api ---
+2026-10-10T19:47:23.3794826Z [INFO] Building jar: /home/runner/work/ecoactions-api/ecoactions-api/target/ecoactions-api-0.0.1-SNAPSHOT.jar
+2026-10-10T19:47:23.4142172Z [INFO]
+2026-10-10T19:47:23.4165675Z [INFO] --- spring-boot:3.5.14:repackage (repackage) @ ecoactions-api ---
+2026-10-10T19:47:24.5803223Z [INFO] Replacing main artifact /home/runner/work/ecoactions-api/ecoactions-api/target/ecoactions-api-0.0.1-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+2026-10-10T19:47:24.5815930Z [INFO] The original artifact has been renamed to /home/runner/work/ecoactions-api/ecoactions-api/target/ecoactions-api-0.0.1-SNAPSHOT.jar.original
+2026-10-10T19:47:24.5816964Z [INFO] ------------------------------------------------------------------------
+2026-10-10T19:47:24.5817654Z [INFO] BUILD SUCCESS
+2026-10-10T19:47:24.5818144Z [INFO] ------------------------------------------------------------------------
+2026-10-10T19:47:24.5818676Z [INFO] Total time:  22.970 s
+2026-10-10T19:47:24.5819126Z [INFO] Finished at: 2026-10-10T19:47:24Z
+2026-10-10T19:47:24.5819666Z [INFO] ------------------------------------------------------------------------
+2026-10-10T19:47:24.6187196Z ##[group]Run actions/upload-artifact@v6
+2026-10-10T19:47:24.6187436Z with:
+2026-10-10T19:47:24.6187596Z   name: build-7
+2026-10-10T19:47:24.6187788Z   path: target/*.jar
+target/surefire-reports/
 
-  .   ____          _            __ _ _
- /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
-( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
- \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
-  '  |____| .__|_| |_|_| |_\__, | / / / /
- =========|_|==============|___/=/_/_/_/
-
- :: Spring Boot ::               (v3.5.14)
-
-2026-10-10T15:09:12.497-03:00  INFO 48532 --- [ecoactions-api] [           main] b.c.f.e.EcoactionsApiApplicationTests    : Starting EcoactionsApiApplicationTests using Java 21.0.11 with PID 48532 (started by gelm9 in C:\Users\gelm9\Downloads\ecoactions-api\ecoactions-api)
-2026-10-10T15:09:12.498-03:00  INFO 48532 --- [ecoactions-api] [           main] b.c.f.e.EcoactionsApiApplicationTests    : No active profile set, falling back to 1 default profile: "default"
-Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
-OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
-WARNING: A Java agent has been loaded dynamically (C:\Users\gelm9\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar)
-WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
-WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
-WARNING: Dynamic loading of agents will be disallowed by default in a future release
-2026-10-10T15:09:14.718-03:00  INFO 48532 --- [ecoactions-api] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
-2026-10-10T15:09:15.419-03:00  INFO 48532 --- [ecoactions-api] [           main] b.c.f.e.EcoactionsApiApplicationTests    : Started EcoactionsApiApplicationTests in 3.182 seconds (process running for 4.097)
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.591 s -- in br.com.fiap.ecoactions_api.EcoactionsApiApplicationTests
-[INFO] Running br.com.fiap.ecoactions_api.service.AlertaServiceTest
-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.157 s -- in br.com.fiap.ecoactions_api.service.AlertaServiceTest
-[INFO] Running br.com.fiap.ecoactions_api.service.ColetaServiceTest
-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.024 s -- in br.com.fiap.ecoactions_api.service.ColetaServiceTest
-[INFO] Running br.com.fiap.ecoactions_api.service.ResiduoServiceTest
-[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.032 s -- in br.com.fiap.ecoactions_api.service.ResiduoServiceTest
-[INFO] 
-[INFO] Results:
-[INFO] 
-[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0
-[INFO] 
-[INFO] 
-[INFO] --- jar:3.4.2:jar (default-jar) @ ecoactions-api ---
-[INFO] Building jar: C:\Users\gelm9\Downloads\ecoactions-api\ecoactions-api\target\ecoactions-api-0.0.1-SNAPSHOT.jar
-[INFO] 
-[INFO] --- spring-boot:3.5.14:repackage (repackage) @ ecoactions-api ---
-[INFO] Replacing main artifact C:\Users\gelm9\Downloads\ecoactions-api\ecoactions-api\target\ecoactions-api-0.0.1-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
-[INFO] The original artifact has been renamed to C:\Users\gelm9\Downloads\ecoactions-api\ecoactions-api\target\ecoactions-api-0.0.1-SNAPSHOT.jar.original
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESS
-[INFO] ------------------------------------------------------------------------
-[INFO] Total time:  9.964 s
-[INFO] Finished at: 2026-10-10T15:09:16-03:00
-[INFO] ------------------------------------------------------------------------
+2026-10-10T19:47:24.6188022Z   if-no-files-found: warn
+2026-10-10T19:47:24.6188205Z   retention-days: 7
+2026-10-10T19:47:24.6188375Z   compression-level: 6
+2026-10-10T19:47:24.6188551Z   overwrite: false
+2026-10-10T19:47:24.6188721Z   include-hidden-files: false
+2026-10-10T19:47:24.6188908Z env:
+2026-10-10T19:47:24.6189151Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-10-10T19:47:24.6189537Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-10-10T19:47:24.6189853Z   MAVEN_ARGS: -ntp
+2026-10-10T19:47:24.6190019Z ##[endgroup]
+2026-10-10T19:47:24.7506712Z With the provided path, there will be 17 files uploaded
+2026-10-10T19:47:24.7507368Z Artifact name is valid!
+2026-10-10T19:47:24.7507722Z Root directory input is valid!
+2026-10-10T19:47:25.1065604Z Beginning upload of artifact content to blob storage
+2026-10-10T19:47:26.1185953Z Uploaded bytes 8388608
+2026-10-10T19:47:26.3831596Z Uploaded bytes 16777216
+2026-10-10T19:47:26.6141118Z Uploaded bytes 25165824
+2026-10-10T19:47:26.8060381Z Uploaded bytes 30022514
+2026-10-10T19:47:26.8688239Z Finished uploading artifact content to blob storage!
+2026-10-10T19:47:26.8690782Z SHA256 digest of uploaded artifact zip is 5106b6fdc467182642e811a633604de0a521dee7b957475b56cbc6cfc0b7f131
+2026-10-10T19:47:26.8692799Z Finalizing artifact upload
+2026-10-10T19:47:27.2196060Z Artifact build-7.zip successfully finalized. Artifact ID 11679998907
+2026-10-10T19:47:27.2196662Z Artifact build-7 has been successfully uploaded! Final size is 30022514 bytes. Artifact ID is 11679998907
+2026-10-10T19:47:27.2200863Z Artifact download URL: https://github.com/Gabriel-Morais102/ecoactions-api/actions/runs/38081156864/artifacts/11679998907
+2026-10-10T19:47:27.2371334Z Post job cleanup.
+2026-10-10T19:47:27.3546013Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/ecoactions-api/ecoactions-api --files-from manifest.txt --use-compress-program zstdmt
+2026-10-10T19:47:28.4710339Z Sent 9082627 of 9082627 (100.0%), 9.9 MBs/sec
+2026-10-10T19:47:28.7276061Z maven-wrapper cache saved with the key: setup-java-Linux-x64-maven-wrapper-08b44b37610fff768c65b0728d58bbdd1b4473f9f36abd39847d1bbbfe6f496d
+2026-10-10T19:47:28.7345032Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/ecoactions-api/ecoactions-api --files-from manifest.txt --use-compress-program zstdmt
+2026-10-10T19:47:30.0951394Z Sent 39321600 of 69672448 (56.4%), 37.5 MBs/sec
+2026-10-10T19:47:30.6850981Z Sent 69672448 of 69672448 (100.0%), 41.8 MBs/sec
+2026-10-10T19:47:30.8982758Z Cache saved with the key: setup-java-Linux-x64-maven-2c968b97f8a71cceeef44b7dfa5681c3b7ddc202032e6412ca0b99f0945bdab9
+2026-10-10T19:47:30.9148670Z Post job cleanup.
+2026-10-10T19:47:30.9813759Z [command]/usr/bin/git version
+2026-10-10T19:47:30.9847907Z git version 2.55.0
+2026-10-10T19:47:30.9878539Z Temporarily overriding HOME='/home/runner/work/_temp/12728452-24fb-4254-bbd4-178d237aa355' before making global git config changes
+2026-10-10T19:47:30.9879571Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-10T19:47:30.9882647Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ecoactions-api/ecoactions-api
+2026-10-10T19:47:30.9913460Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-10T19:47:30.9942010Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-10T19:47:31.0146010Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-10T19:47:31.0175757Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-10T19:47:31.0386280Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-10T19:47:31.0417230Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-10T19:47:31.0755248Z Cleaning up orphan processes

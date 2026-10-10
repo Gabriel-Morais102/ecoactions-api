@@ -1,0 +1,4 @@
+MongoDB de staging interrompido para teste controlado.
+HTTP 503 {"application":"ecoactions-api","status":"DOWN","timestamp":"2026-10-10T19:31:08.789992668Z"}
+MongoDB reiniciado; aplicação recuperada sem recriar o volume.
+HTTP 200 {"application":"ecoactions-api","status":"UP","timestamp":"2026-10-10T19:31:21.352002504Z"}
