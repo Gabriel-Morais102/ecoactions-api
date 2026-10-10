@@ -6,8 +6,9 @@ automatizar build, testes, containerização e deploy em staging e produção.
 
 **Repositório público:** [github.com/Gabriel-Morais102/ecoactions-api](https://github.com/Gabriel-Morais102/ecoactions-api)
 
-> **Integrante(s):** preencher antes da entrega  
-> **Turma:** preencher antes da entrega
+> **Integrante:** Gabriel Elias Lopes de Morais — RM 566281
+>
+> **Turma:** 2TDSOD
 
 ## Sumário
 
@@ -423,9 +424,8 @@ A apresentação técnica está disponível em
 Ela reúne a arquitetura, o pipeline, as estratégias de containerização, as
 evidências locais de build, testes e deploy, além dos desafios encontrados.
 
-Os campos de integrantes e turma devem ser preenchidos antes do envio. A
-apresentação já contém os prints da primeira execução real do GitHub Actions;
-nenhuma evidência foi simulada.
+A apresentação contém os dados do integrante e os prints da primeira execução
+real do GitHub Actions; nenhuma evidência foi simulada.
 
 ## Estrutura do projeto
 
@@ -477,5 +477,5 @@ repositório.
 | Documentação técnica com evidências em PDF ou PPT | ☑ |
 | Deploy realizado nos ambientes staging e produção | ☑ |
 
-Todos os itens técnicos foram concluídos e comprovados. Antes do upload na
-plataforma, falta somente preencher os nomes e a turma nos campos indicados.
+Todos os itens técnicos foram concluídos e comprovados. Os dados do integrante
+e da turma também foram incluídos nos arquivos finais da entrega.
