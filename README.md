@@ -1,255 +1,221 @@
 # Projeto — Cidades ESG Inteligentes | EcoActions API
 
-API REST para apoiar a gestão inteligente de resíduos, pontos de coleta, coletas,
-destinações e alertas ambientais. O projeto aplica práticas de DevOps para
-automatizar build, testes, containerização e deploy em staging e produção.
+API REST para apoiar a gestão de resíduos, pontos de coleta, coletas, destinações
+e alertas ambientais. O projeto aplica DevOps com build, testes, containerização
+e deploy automatizado em dois ambientes.
 
-**Repositório público:** [github.com/Gabriel-Morais102/ecoactions-api](https://github.com/Gabriel-Morais102/ecoactions-api)
+**Integrante:** Gabriel Elias Lopes de Morais — **RM:** 566281 — **Turma:** 2TDSOD
 
-> **Integrante:** Gabriel Elias Lopes de Morais — RM 566281
->
-> **Turma:** 2TDSOD
+**Repositório:** [Gabriel-Morais102/ecoactions-api](https://github.com/Gabriel-Morais102/ecoactions-api)
 
-## Sumário
+## Sobre o projeto e arquitetura
 
-- [Sobre o projeto](#sobre-o-projeto)
-- [Arquitetura](#arquitetura)
-- [Como executar localmente com Docker](#como-executar-localmente-com-docker)
-- [Ambientes de staging e produção](#ambientes-de-staging-e-produção)
-- [Pipeline CI/CD](#pipeline-cicd)
-- [Testes automatizados](#testes-automatizados)
-- [Containerização](#containerização)
-- [Principais endpoints](#principais-endpoints)
-- [Variáveis de ambiente](#variáveis-de-ambiente)
-- [Prints do funcionamento](#prints-do-funcionamento)
-- [Tecnologias utilizadas](#tecnologias-utilizadas)
-- [Documentação técnica](#documentação-técnica)
-- [Estrutura do projeto](#estrutura-do-projeto)
-- [Checklist da entrega](#checklist-da-entrega)
-
-## Sobre o projeto
-
-O EcoActions foi desenvolvido para o contexto de cidades ESG inteligentes. A
-aplicação registra informações relacionadas ao descarte de resíduos e permite
-acompanhar o fluxo desde o ponto de coleta até a destinação final.
-
-O domínio está dividido em cinco áreas:
-
-- resíduos e seus limites de armazenamento;
-- pontos de coleta;
-- coletas realizadas;
-- destinações dos materiais;
-- alertas ambientais.
-
-Os dados são persistidos no MongoDB. Na primeira inicialização, um script cria
-as collections, índices e uma carga de demonstração com 10 documentos em cada
-collection.
-
-## Arquitetura
+O EcoActions registra o fluxo do descarte até a destinação final e permite
+acompanhar a capacidade dos pontos de coleta. Usa Spring Boot, autenticação
+HTTP Basic e MongoDB. Na criação de um volume novo, o banco recebe collections,
+índices e uma carga de demonstração com 10 documentos por collection.
 
 ```mermaid
 flowchart LR
-    U[Cliente HTTP] -->|HTTP Basic| A[EcoActions API<br/>Spring Boot]
-    A -->|Spring Data| M[(MongoDB 7)]
-    G[GitHub Actions] --> B[Build e testes]
-    B --> I[Imagem Docker]
-    I --> S[Staging]
-    S -->|Health check aprovado| P[Produção]
+    C[Commit na main] --> B[GitHub Actions / Ubuntu 24.04<br/>Build e testes]
+    B --> I[Imagem Docker<br/>tag do commit]
+    I --> S[Runner Windows local<br/>Deploy staging]
+    S -->|Health e smoke test aprovados| P[Deploy produção<br/>mesma imagem]
+    U[Cliente HTTP] -->|HTTP Basic| A[EcoActions API]
+    A --> M[(MongoDB)]
 ```
 
-No ambiente Docker, a API e o MongoDB compartilham uma rede privada. Apenas as
-portas necessárias são publicadas no computador. Os dados do MongoDB ficam em
-um volume persistente e separado para cada ambiente.
+Os ambientes são projetos Docker Compose independentes no host Windows. Cada
+um tem API, MongoDB, rede e volume próprios. Os serviços continuam ativos depois
+do pipeline, enquanto o computador e o Docker Desktop estiverem ligados. Esta
+entrega simula produção em um host local, sem URL pública ou nuvem.
 
 ## Como executar localmente com Docker
 
 ### Pré-requisitos
 
-- Docker Desktop com Docker Compose;
-- portas `8080` e `27017` disponíveis;
-- Git, caso o projeto seja obtido por clone.
+- Docker Desktop em modo de contêineres Linux, com Docker Compose v2;
+- portas `8080` e `27017` disponíveis para o ambiente local;
+- PowerShell 7 (`pwsh`) para os scripts de deploy e smoke test;
+- Java 17 somente para executar Maven fora do Docker.
 
-### 1. Configurar o ambiente
-
-Na raiz do projeto, copie o arquivo de exemplo:
+Na raiz do projeto, copie o arquivo de ambiente:
 
 ```powershell
 Copy-Item .env.example .env
 ```
 
-No Linux ou macOS, o comando equivalente é:
+Em Linux ou macOS, use `cp .env.example .env`. Edite o arquivo e substitua todas
+as senhas de exemplo. Para senhas com `$` ou `#`, use aspas simples no `.env`,
+conforme o modelo. As credenciais são campos separados de conexão, sem
+concatenação em uma URI MongoDB.
+
+Construa a aplicação e espere pelos health checks:
 
 ```bash
-cp .env.example .env
-```
-
-Edite o arquivo `.env` e substitua as senhas marcadas com
-`troque_esta_senha`. Esse arquivo não é versionado pelo Git.
-
-### 2. Construir e iniciar os serviços
-
-```bash
-docker compose up --detach --build
-```
-
-O Compose inicia os serviços na ordem correta: primeiro o MongoDB, depois a
-API. A aplicação só é iniciada quando o banco passa no health check.
-
-### 3. Conferir o estado dos contêineres
-
-```bash
+docker compose up --detach --build --wait --wait-timeout 180
 docker compose ps
 ```
 
-Os dois serviços devem aparecer com o estado `healthy`.
-
-### 4. Testar a aplicação
-
-Health check público:
+O MongoDB inicia primeiro. A API só inicia depois de o banco ficar saudável.
+O endpoint público consulta o MongoDB antes de responder:
 
 ```bash
 curl http://localhost:8080/api/health
 ```
 
-Resposta esperada:
+Uma resposta HTTP `200` contém `status: "UP"`, `application: "ecoactions-api"`
+e um timestamp. Se a conexão com o banco falhar, retorna HTTP `503` com
+`status: "DOWN"`.
 
-```json
-{"status":"UP"}
-```
-
-Consulta autenticada:
+Para consultar dados, use o usuário configurado no `.env`. O comando solicita
+a senha sem gravá-la na linha de comando:
 
 ```bash
-curl -u admin:SENHA_DEFINIDA_NO_ENV http://localhost:8080/api/residuos
+curl -u admin http://localhost:8080/api/residuos
 ```
 
-A aplicação fica disponível em `http://localhost:8080` e o MongoDB em
-`localhost:27017`.
+No Windows PowerShell 5.1, use `curl.exe` para evitar o alias de
+`Invoke-WebRequest`. Validação funcional completa com PowerShell 7:
 
-### 5. Encerrar o ambiente
+```powershell
+pwsh -File scripts/smoke-test.ps1 -EnvFile .env -CheckCrud
+```
 
-Para parar os serviços e preservar os dados:
+Para parar e remover os contêineres preservando os dados:
 
 ```bash
 docker compose down
 ```
 
-Para também apagar o volume do banco e refazer a carga inicial no próximo
-início:
-
-```bash
-docker compose down --volumes
-```
-
-> O segundo comando remove os dados armazenados no ambiente local.
+`docker compose down --volumes` também apaga o banco. O pipeline não usa esse
+comando. Para volumes da versão anterior, siga a
+[migração sem perda de dados](deploy/README.md#migração-de-volumes-existentes).
 
 ## Ambientes de staging e produção
 
-O mesmo `docker-compose.yml` é reutilizado com configurações diferentes. O nome
-do projeto Compose garante redes, contêineres e volumes independentes.
-
-| Ambiente | API | MongoDB | Projeto Compose | Banco |
+| Ambiente | API | MongoDB no host | Projeto Compose | Banco |
 | --- | --- | --- | --- | --- |
-| Local | `localhost:8080` | `localhost:27017` | `ecoactions-local` | `ecoactions` |
-| Staging | `localhost:8081` | `localhost:27018` | `ecoactions-staging` | `ecoactions_staging` |
-| Produção | `localhost:8082` | `localhost:27019` | `ecoactions-production` | `ecoactions_production` |
+| Local | `localhost:8080` | `127.0.0.1:27017` | `ecoactions-local` | `ecoactions` |
+| Staging | `localhost:8081` | `127.0.0.1:27018` | `ecoactions-staging` | `ecoactions_staging` |
+| Produção | `localhost:8082` | `127.0.0.1:27019` | `ecoactions-production` | `ecoactions_production` |
 
-Antes de iniciar staging ou produção, crie os arquivos locais e altere suas
-senhas:
+As configurações persistentes ficam fora do checkout temporário do runner,
+sob o diretório absoluto definido por `ECOACTIONS_DEPLOY_ROOT`:
+
+```text
+.deployment/
+├── staging/
+│   └── .env
+└── production/
+    └── .env
+```
+
+Os `.env` ficam no host. A pasta `.deployment` é ignorada pelo Git e pelo
+contexto Docker. O script copia Compose e scripts para cada ambiente, mantendo
+os caminhos montados independentes do checkout do runner.
+
+Prepare os arquivos conforme o [guia de deploy](deploy/README.md). Para implantar
+manualmente a mesma imagem nos dois ambientes:
 
 ```powershell
-Copy-Item deploy/staging.env.example deploy/staging.env
-Copy-Item deploy/production.env.example deploy/production.env
-```
-
-Construa a imagem utilizada nos dois ambientes:
-
-```bash
 docker build --tag ecoactions-api:local .
+pwsh -File scripts/deploy.ps1 -Environment staging -Image ecoactions-api:local
+pwsh -File scripts/deploy.ps1 -Environment production -Image ecoactions-api:local
 ```
 
-Deploy de staging:
-
-```bash
-docker compose --env-file deploy/staging.env up --detach --no-build
-```
-
-Deploy de produção:
-
-```bash
-docker compose --env-file deploy/production.env up --detach --no-build
-```
-
-Os arquivos `deploy/*.env` são ignorados pelo Git. Apenas os modelos `.example`
-fazem parte do projeto.
+O deploy automático usa a imagem produzida no GitHub Actions. O deploy local usa
+o mesmo script e precisa de `ECOACTIONS_DEPLOY_ROOT` definido no processo.
 
 ## Pipeline CI/CD
 
-O pipeline foi implementado com GitHub Actions no arquivo
-`.github/workflows/ci-cd.yml`.
+Configuração: [`.github/workflows/ci-cd.yml`](.github/workflows/ci-cd.yml).
 
-Ele pode ser iniciado de três maneiras:
-
-- pull request direcionado à branch `main`;
-- push realizado na branch `main`;
-- execução manual pela opção **Run workflow** do GitHub Actions.
-
-### Fluxo do pipeline
-
-| Job | Responsabilidade | Condição |
+| Job | Executor | Etapas |
 | --- | --- | --- |
-| `build-and-test` | Configura Java 17, compila e executa os testes | Sempre |
-| `docker-image` | Constrói e empacota a imagem Docker | Após build e testes |
-| `deploy-staging` | Sobe staging e executa smoke test | Push em `main` ou execução manual |
-| `deploy-production` | Sobe produção e executa smoke test | Somente após staging aprovado |
+| `build-and-test` | GitHub, Ubuntu 24.04 | Java 17, `clean verify`, JAR e relatórios |
+| `docker-image` | GitHub, Ubuntu 24.04 | Build multi-stage, verificação do usuário e publicação da imagem como artefato |
+| `deploy-staging` | Runner Windows local | Carrega a imagem, aplica Compose, aguarda health, consulta dados e testa criação/leitura/exclusão |
+| `deploy-production` | Runner Windows local | Implanta a imagem aprovada em staging e valida health e consultas autenticadas |
 
-```mermaid
-flowchart LR
-    C[Commit ou Pull Request] --> T[Build + 9 testes]
-    T --> D[Build da imagem Docker]
-    D --> S[Deploy staging]
-    S --> H{Health UP?}
-    H -->|Sim| P[Deploy produção]
-    H -->|Não| F[Pipeline interrompido]
-```
+O pipeline inicia em pull requests para `main`, pushes em `main` e execução
+manual. Pull requests executam somente build, testes e imagem em runners
+hospedados. Os deploys exigem a branch `main` e ocorrem em sequência. Uma
+execução manual em outra branch não implanta os ambientes.
 
-A imagem criada no job Docker é salva como artefato e reutilizada nos dois
-deploys. Assim, produção recebe exatamente a mesma versão validada em staging.
-Cada deploy consulta `/api/health`; produção não é executada se staging falhar.
+Pushes que alteram somente `README.md`, `docs/**`, `documentacao/**` ou
+`deploy/README.md` não iniciam outra execução. A concorrência é controlada
+para que um novo push não interrompa a execução em andamento.
 
-Em pull requests, os deploys não são realizados: apenas build, testes e
-construção da imagem são validados. No GitHub, os ambientes são identificados
-como `staging` e `production`, permitindo adicionar aprovação manual ao ambiente
-de produção, se desejado.
+### Imagem e promoção
 
-Nesta versão acadêmica, os jobs usam runners hospedados pelo GitHub. Os serviços
-são iniciados, verificados e removidos ao final do job. Os comandos da seção
-anterior permitem manter os ambientes ativos localmente com volumes persistentes.
+A imagem recebe a tag `ecoactions-api:<SHA-do-commit>`, é salva com `docker save`
+e distribuída como artefato com nível de compressão 6. Staging baixa o artefato
+e carrega a imagem com `docker load`.
+
+Produção depende do sucesso de staging e reutiliza a imagem da mesma tag já
+presente no Docker do host. Se a imagem não estiver disponível, o job baixa e
+carrega o artefato da execução. Não há novo build durante a promoção.
+
+A compressão reduz o volume transferido pela rede, e o reaproveitamento da
+imagem evita um segundo download no mesmo host. Os jobs de deploy têm limite
+de 30 minutos para acomodar a transferência sem encerrar os serviços.
+
+O JAR e os relatórios Surefire ficam disponíveis por sete dias; o arquivo da
+imagem, por um dia. O banco de cada ambiente fica em volume persistente no host
+e não depende da retenção desses artefatos.
+
+### Runner e credenciais
+
+O runner de deploy precisa dos rótulos `self-hosted`, `Windows`, `X64` e
+`ecoactions-deploy`, PowerShell 7 e acesso ao Docker Desktop. Configure
+`ECOACTIONS_DEPLOY_ROOT` antes de iniciá-lo. Veja o [guia de deploy](deploy/README.md).
+As versões das actions usadas exigem runner **2.327.1 ou superior**; o host
+da entrega usa a versão **2.338.0**.
+
+Os ambientes GitHub são `staging` e `production`. As senhas dos serviços ficam
+somente nos `.env` do host; os scripts mascaram credenciais nos logs do Actions.
+Essa configuração não exige senhas dos bancos cadastradas como GitHub Secrets.
+
+### Verificação do deploy
+
+[`scripts/deploy.ps1`](scripts/deploy.ps1) executa Compose com `--no-build` e
+`--wait`, chama o smoke test e registra a imagem em `deployed-image.txt`.
+Não encerra serviços nem remove volumes ao terminar.
+
+[`scripts/smoke-test.ps1`](scripts/smoke-test.ps1) exige health conectado ao
+MongoDB e faz consultas autenticadas às cinco áreas da API. Em staging, também
+cria um resíduo, consulta o registro e o remove ao final. Em produção, faz
+somente leituras.
 
 ## Testes automatizados
 
-O projeto possui 9 testes automatizados, distribuídos entre:
+A suíte tem **33 testes automatizados**, usando JUnit 5, Mockito e Spring Test:
 
-- inicialização do contexto Spring Boot;
-- resposta do endpoint de health check;
-- regras de negócio de resíduos;
-- regras de negócio de coletas;
-- criação e tratamento de alertas.
+- inicialização e health, incluindo HTTP 503 quando o MongoDB está indisponível;
+- autenticação, permissões USER/ADMIN e validação de requisições;
+- respostas 400, 404, 409 e tratamento seguro de erros inesperados;
+- regras de coletas, capacidade, alertas e exclusão de registros vinculados.
 
-Execução no Windows:
+Os testes unitários simulam dependências; o smoke test complementa a suíte com
+aplicação e MongoDB reais. O teste que provoca um erro inesperado registra um
+`ERROR` proposital para validar a resposta HTTP 500 sem expor detalhes internos.
+O resultado da suíte está no resumo `Tests run` e em `BUILD SUCCESS`.
+
+Windows:
 
 ```powershell
 .\mvnw.cmd --batch-mode --no-transfer-progress clean verify
 ```
 
-Execução no Linux ou macOS:
+Linux ou macOS, inclusive após descompactar o ZIP:
 
 ```bash
+chmod +x mvnw
 ./mvnw --batch-mode --no-transfer-progress clean verify
 ```
 
-Os relatórios são gerados em `target/surefire-reports`. No pipeline, o JAR e os
-relatórios ficam disponíveis como artefatos por sete dias.
+Os relatórios ficam em `target/surefire-reports`.
 
 ## Containerização
 
@@ -289,38 +255,35 @@ USER spring:spring
 EXPOSE 8080
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
-    CMD curl --fail --silent http://localhost:8080/api/health || exit 1
+    CMD curl --fail --silent --show-error --max-time 4 "http://localhost:${SERVER_PORT:-8080}/api/health" || exit 1
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
 ```
 
-### Estratégias adotadas
+O build separa JDK/Maven do runtime com JRE, copia o `pom.xml` antes do código
+para aproveitar o cache e executa como `spring:spring`. Os testes rodam no job
+anterior à criação da imagem. O health check respeita `SERVER_PORT`.
+O `.dockerignore` exclui credenciais, builds locais e documentação do contexto.
 
-- **Multi-stage build:** o JDK e o Maven Wrapper ficam apenas na etapa de build;
-- **Imagem de runtime menor:** a imagem final utiliza somente o JRE 17;
-- **Cache de dependências:** o `pom.xml` é copiado antes do código-fonte;
-- **Usuário não privilegiado:** a aplicação executa como `spring:spring`;
-- **Health check:** o Docker verifica `/api/health` automaticamente;
-- **Contexto reduzido:** o `.dockerignore` evita copiar arquivos desnecessários;
-- **Testes separados:** o pipeline testa primeiro e só então constrói a imagem.
+### Docker Compose e MongoDB
 
-### Orquestração
+O [`docker-compose.yml`](docker-compose.yml) configura a rede `ecoactions-network`,
+o volume `mongo-data`, variáveis de ambiente e health checks dos dois serviços.
+O nome do projeto prefixa redes e volumes, isolando os ambientes.
 
-O `docker-compose.yml` configura:
+O MongoDB publica a porta somente em `127.0.0.1`. Na rede Docker, a API usa
+`mongo-db` e um usuário com `readWrite` apenas no banco do ambiente. As
+credenciais administrativas são usadas na inicialização e migração, sem serem
+fornecidas à API.
 
-- API Spring Boot;
-- MongoDB 7;
-- rede dedicada `ecoactions-network`;
-- volume persistente `mongo-data`;
-- variáveis de ambiente;
-- dependência baseada no health check do banco;
-- health checks para banco e aplicação.
+Volumes novos executam `docker/mongodb/init`. Volumes existentes precisam da
+migração do usuário descrita no guia de deploy, sem apagar dados.
 
 ## Principais endpoints
 
 | Método | Endpoint | Descrição | Acesso |
 | --- | --- | --- | --- |
-| `GET` | `/api/health` | Saúde da aplicação | Público |
+| `GET` | `/api/health` | Saúde da aplicação e conexão ao MongoDB | Público |
 | `GET` | `/api/residuos` | Lista resíduos | USER ou ADMIN |
 | `POST` | `/api/residuos` | Cadastra um resíduo | ADMIN |
 | `PUT` | `/api/residuos/{id}` | Atualiza um resíduo | ADMIN |
@@ -331,130 +294,131 @@ O `docker-compose.yml` configura:
 | `GET` | `/api/alertas` | Lista alertas | USER ou ADMIN |
 | `POST` | `/api/alertas/verificar-ponto/{id}` | Verifica alertas de um ponto | ADMIN |
 
-As demais operações CRUD seguem o mesmo padrão de autorização: consultas são
-permitidas para `USER` e `ADMIN`; alterações são restritas ao `ADMIN`.
+As outras operações CRUD seguem o mesmo padrão: leitura para USER/ADMIN e
+alteração para ADMIN. As senhas dos usuários HTTP Basic vêm do ambiente.
 
 ## Variáveis de ambiente
 
-| Variável | Finalidade | Exemplo local |
-| --- | --- | --- |
-| `COMPOSE_PROJECT_NAME` | Nome e isolamento do projeto Compose | `ecoactions-local` |
-| `APP_IMAGE` | Imagem da aplicação | `ecoactions-api:local` |
-| `APP_PORT` | Porta publicada para a API | `8080` |
-| `SERVER_PORT` | Porta interna do Spring Boot | `8080` |
-| `MONGO_PORT` | Porta publicada para o MongoDB | `27017` |
-| `MONGO_DATABASE` | Nome do banco do ambiente | `ecoactions` |
-| `MONGO_ROOT_USERNAME` | Usuário administrador do MongoDB | definido no `.env` |
-| `MONGO_ROOT_PASSWORD` | Senha do MongoDB | definida no `.env` |
-| `MONGODB_AUTO_INDEX_CREATION` | Criação automática de índices | `true` |
-| `APP_ADMIN_USERNAME` | Usuário administrativo da API | `admin` |
-| `APP_ADMIN_PASSWORD` | Senha administrativa da API | definida no `.env` |
-| `APP_USER_USERNAME` | Usuário de consulta da API | `user` |
-| `APP_USER_PASSWORD` | Senha do usuário de consulta | definida no `.env` |
+| Variável | Finalidade |
+| --- | --- |
+| `COMPOSE_PROJECT_NAME` | Identificação e isolamento do ambiente |
+| `APP_IMAGE` | Imagem a implantar; o pipeline usa a tag do commit |
+| `APP_PORT` / `SERVER_PORT` | Porta da API no host / dentro do contêiner |
+| `MONGO_PORT` / `MONGO_DATABASE` | Porta local publicada / banco |
+| `MONGO_ROOT_USERNAME` / `MONGO_ROOT_PASSWORD` | Administração e inicialização do banco |
+| `MONGO_APP_USERNAME` / `MONGO_APP_PASSWORD` | Usuário da API no banco, com `readWrite` |
+| `MONGODB_AUTO_INDEX_CREATION` | Criação automática de índices pelo Spring Data |
+| `APP_ADMIN_USERNAME` / `APP_ADMIN_PASSWORD` | Usuário administrativo HTTP Basic |
+| `APP_USER_USERNAME` / `APP_USER_PASSWORD` | Usuário de leitura HTTP Basic |
+| `ECOACTIONS_DEPLOY_ROOT` | Diretório absoluto dos ambientes no host do runner |
+
+O Compose traduz as variáveis do banco para `MONGODB_HOST`, `MONGODB_PORT`,
+`MONGODB_DATABASE`, `MONGODB_USERNAME`, `MONGODB_PASSWORD` e
+`MONGODB_AUTHENTICATION_DATABASE`, lidas pelo Spring Boot. Os campos separados
+permitem caracteres especiais na senha sem codificação de URI.
 
 ## Prints do funcionamento
 
-As evidências abaixo foram produzidas a partir de execuções reais e possuem os
-respectivos logs `.txt` em `docs/evidencias`. As imagens apresentam o conteúdo
-dos logs de forma legível; não representam uma execução fictícia do GitHub.
+A [execução #7 do GitHub Actions](https://github.com/Gabriel-Morais102/ecoactions-api/actions/runs/38081156864) terminou com
+**Success**, em **4m 45s**, para o commit
+`e500df0e9b66cbb88a8895f9aedf5769a1fb4106`. Os quatro jobs foram concluídos: build e testes, imagem
+Docker, staging e produção. A suíte executou **33 testes**, sem
+falhas, erros ou testes ignorados.
 
-### Build e testes
+### Pipeline e build
 
-![Build Maven e nove testes aprovados](docs/evidencias/01-build-e-testes.png)
+![Execução final do pipeline no GitHub Actions](docs/evidencias/07-pipeline-cicd-github.jpg)
 
-Resultado: `BUILD SUCCESS`, com 9 testes executados, nenhuma falha e nenhum erro.
+![Build e testes no GitHub Actions](docs/evidencias/01-build-e-testes.jpg)
+
+O [log de build e testes](docs/evidencias/01-build-e-testes.txt) preserva a
+saída real do job no GitHub Actions. Os relatórios Surefire também ficam nos
+artefatos do workflow.
 
 ### Imagem Docker
 
-![Metadados da imagem Docker](docs/evidencias/02-imagem-docker.png)
+![Evidência da imagem Docker](docs/evidencias/02-imagem-docker.jpg)
 
-A imagem utiliza Linux `amd64`, runtime Java 17 e o usuário não privilegiado
-`spring:spring`.
+Staging e produção usam `ecoactions-api:e500df0e9b66cbb88a8895f9aedf5769a1fb4106`. Os metadados da
+imagem estão em [02-imagem-docker.txt](docs/evidencias/02-imagem-docker.txt).
 
 ### Staging funcionando
 
-![Ambiente de staging funcionando](docs/evidencias/04-staging-funcionando.png)
+![Job de staging aprovado no GitHub Actions](docs/evidencias/03-deploy-staging-pipeline.jpg)
 
-Staging possui API na porta `8081`, MongoDB na porta `27018` e health check
-com status `UP`.
+![Saída real do smoke test de staging após deploy](docs/evidencias/04-staging-funcionando.jpg)
+
+Health UP, consultas autenticadas às 5 áreas e criação/leitura/exclusão de teste: 201/200/204. O
+[registro de staging](docs/evidencias/03-deploy-staging-local.txt) contém a
+saída real do smoke test e o estado dos contêineres após o deploy.
 
 ### Produção funcionando
 
-![Ambiente de produção funcionando](docs/evidencias/06-producao-funcionando.png)
+![Job de produção aprovado no GitHub Actions](docs/evidencias/05-deploy-producao-pipeline.jpg)
 
-Produção possui API na porta `8082`, MongoDB na porta `27019` e health check
-com status `UP`.
+![Saída real do smoke test de produção após deploy](docs/evidencias/06-producao-funcionando.jpg)
 
-### Pipeline executado no GitHub Actions
+Health UP e consultas autenticadas às 5 áreas, com 10 registros em cada resposta. O
+[registro de produção](docs/evidencias/05-deploy-producao-local.txt) preserva
+a validação após o término do pipeline.
 
-![Pipeline CI/CD concluído no GitHub Actions](docs/evidencias/07-pipeline-cicd-github.png)
+As imagens dos smoke tests são capturas das páginas do GitHub que exibem os
+logs reais, com identificação do ambiente, requisições e resultados. Os
+serviços permanecem no host local; essas páginas são evidências da execução,
+não endpoints públicos da API.
 
-A [execução #1 do workflow](https://github.com/Gabriel-Morais102/ecoactions-api/actions/runs/38076926404)
-terminou com status **Success** em 2 minutos e 40 segundos. Os quatro jobs
-foram executados em sequência: build e testes, criação da imagem Docker, deploy
-em staging e deploy em produção.
+### Validações adicionais
 
-#### Deploy em staging
-
-![Job de staging concluído](docs/evidencias/03-deploy-staging-pipeline.png)
-
-#### Deploy em produção
-
-![Job de produção concluído](docs/evidencias/05-deploy-producao-pipeline.png)
+- [Contrato HTTP e regras da API](docs/evidencias/08-validacao-api.txt):
+  autenticação, validação, conflitos e preservação do saldo após rejeitar uma
+  coleta inválida.
+- [Indisponibilidade do MongoDB](docs/evidencias/09-health-indisponibilidade.txt):
+  health retorna 503/DOWN durante a interrupção e volta a 200/UP após o reinício,
+  sem recriar o volume.
 
 ## Tecnologias utilizadas
 
-- Java 17;
-- Spring Boot 3.5;
-- Spring Web;
-- Spring Data MongoDB;
-- Spring Security;
-- Bean Validation;
-- JUnit 5 e Mockito;
-- Maven Wrapper;
-- MongoDB 7;
-- Docker e Docker Compose;
-- GitHub Actions;
-- YAML, Bash e PowerShell.
+- Java 17 e Spring Boot 3.5.14;
+- Spring Web, Spring Data MongoDB, Spring Security e Bean Validation;
+- JUnit 5, Mockito e Spring Test;
+- Maven Wrapper e MongoDB 7;
+- Docker, Docker Compose, GitHub Actions e runner Windows;
+- PowerShell 7, Bash e YAML.
 
 ## Documentação técnica
 
-A apresentação técnica está disponível em
-[`documentacao/EcoActions-Documentacao-Tecnica.pptx`](documentacao/EcoActions-Documentacao-Tecnica.pptx).
-Ela reúne a arquitetura, o pipeline, as estratégias de containerização, as
-evidências locais de build, testes e deploy, além dos desafios encontrados.
-
-A apresentação contém os dados do integrante e os prints da primeira execução
-real do GitHub Actions; nenhuma evidência foi simulada.
+[`documentacao/EcoActions-Documentacao-Tecnica.pptx`](documentacao/EcoActions-Documentacao-Tecnica.pptx)
+reúne identificação, arquitetura, pipeline, Docker, desafios, evidências e
+checklist. As capturas identificam a execução do pipeline e a validação de cada ambiente.
 
 ## Estrutura do projeto
 
 ```text
 ecoactions-api/
-├── .github/
-│   └── workflows/
-│       └── ci-cd.yml
+├── .github/workflows/ci-cd.yml
+├── .mvn/wrapper/maven-wrapper.properties
 ├── deploy/
-│   ├── production.env.example
 │   ├── staging.env.example
+│   ├── production.env.example
 │   └── README.md
-├── docker/
-│   └── mongodb/
-│       └── init/
-│           └── 01-create-collections-and-crud.js
-├── docs/
-│   ├── assets/
-│   └── evidencias/
-├── documentacao/
-│   └── EcoActions-Documentacao-Tecnica.pptx
-├── src/
-│   ├── main/
-│   └── test/
+├── docker/mongodb/
+│   ├── init/
+│   │   ├── 01-create-collections-and-crud.js
+│   │   └── 02-create-app-user.js
+│   └── migrate-app-user.js
+├── docs/evidencias/
+├── documentacao/EcoActions-Documentacao-Tecnica.pptx
+├── scripts/
+│   ├── deploy.ps1
+│   ├── smoke-test.ps1
+│   └── start-runner.ps1
+├── src/main/
+├── src/test/
 ├── .dockerignore
 ├── .env.example
 ├── .gitignore
-├── docker-compose.yml
 ├── Dockerfile
+├── docker-compose.yml
 ├── mvnw
 ├── mvnw.cmd
 ├── pom.xml
@@ -463,19 +427,14 @@ ecoactions-api/
 
 ## Checklist da entrega
 
-O checklist reflete o estado do pacote gerado neste passo. Os itens relacionados
-à execução do pipeline no GitHub devem ser revisados após a publicação do
-repositório.
+Checklist referente ao pacote final, à documentação e às evidências desta entrega.
 
 | Item | OK |
 | --- | :---: |
-| Projeto compactado em `.zip` com estrutura organizada | ☑ |
+| Projeto compactado em ZIP com estrutura organizada | ☑ |
 | Dockerfile funcional | ☑ |
-| `docker-compose.yml` ou arquivos Kubernetes | ☑ |
+| Docker Compose com volumes, variáveis e rede | ☑ |
 | Pipeline com etapas de build, teste e deploy | ☑ |
-| README.md com instruções e prints | ☑ |
+| README com instruções e prints | ☑ |
 | Documentação técnica com evidências em PDF ou PPT | ☑ |
 | Deploy realizado nos ambientes staging e produção | ☑ |
-
-Todos os itens técnicos foram concluídos e comprovados. Os dados do integrante
-e da turma também foram incluídos nos arquivos finais da entrega.
