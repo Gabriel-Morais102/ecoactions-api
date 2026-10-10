@@ -39,7 +39,9 @@ build/
 *.log
 oracleJdk-26/
 .doc_build/
-.codex-finalizer/
 deploy/*.env
 !deploy/*.env.example
 /entrega/
+/.deployment/
+/.runner/
+/.review-work/

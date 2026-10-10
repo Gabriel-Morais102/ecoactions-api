@@ -2,6 +2,7 @@ package br.com.fiap.ecoactions_api.service;
 
 import br.com.fiap.ecoactions_api.dto.request.ColetaRequest;
 import br.com.fiap.ecoactions_api.dto.response.ColetaResponse;
+import br.com.fiap.ecoactions_api.exception.ResourceConflictException;
 import br.com.fiap.ecoactions_api.exception.ResourceNotFoundException;
 import br.com.fiap.ecoactions_api.model.Coleta;
 import br.com.fiap.ecoactions_api.model.PontoColeta;
@@ -61,9 +62,12 @@ public class ColetaService {
 
     private void atualizarCapacidadeDepoisDaColeta(PontoColeta pontoColeta, Integer quantidadeColeta) {
         var capacidadeAtual = pontoColeta.getCapacidadeAtual() != null ? pontoColeta.getCapacidadeAtual() : 0;
-        var novaCapacidade = Math.max(0, capacidadeAtual - quantidadeColeta);
 
-        pontoColeta.setCapacidadeAtual(novaCapacidade);
+        if (quantidadeColeta > capacidadeAtual) {
+            throw new ResourceConflictException("A quantidade coletada não pode superar a quantidade disponível no ponto de coleta.");
+        }
+
+        pontoColeta.setCapacidadeAtual(capacidadeAtual - quantidadeColeta);
         pontoColetaRepository.save(pontoColeta);
     }
 }

@@ -2,8 +2,10 @@ package br.com.fiap.ecoactions_api.service;
 
 import br.com.fiap.ecoactions_api.dto.request.PontoColetaRequest;
 import br.com.fiap.ecoactions_api.dto.response.PontoColetaResponse;
+import br.com.fiap.ecoactions_api.exception.ResourceConflictException;
 import br.com.fiap.ecoactions_api.exception.ResourceNotFoundException;
 import br.com.fiap.ecoactions_api.model.PontoColeta;
+import br.com.fiap.ecoactions_api.repository.ColetaRepository;
 import br.com.fiap.ecoactions_api.repository.PontoColetaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ import java.util.List;
 public class PontoColetaService {
 
     private final PontoColetaRepository pontoColetaRepository;
+    private final ColetaRepository coletaRepository;
     private final ResiduoService residuoService;
 
     public List<PontoColetaResponse> listar() {
@@ -53,6 +56,11 @@ public class PontoColetaService {
 
     public void remover(String id) {
         var pontoColeta = buscarEntidadePorId(id);
+
+        if (coletaRepository.existsByPontoColeta(pontoColeta)) {
+            throw new ResourceConflictException("O ponto de coleta possui coletas registradas e não pode ser removido.");
+        }
+
         pontoColetaRepository.delete(pontoColeta);
     }
 

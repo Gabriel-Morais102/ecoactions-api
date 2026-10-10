@@ -1,6 +1,7 @@
 package br.com.fiap.ecoactions_api.service;
 
 import br.com.fiap.ecoactions_api.dto.request.ColetaRequest;
+import br.com.fiap.ecoactions_api.exception.ResourceConflictException;
 import br.com.fiap.ecoactions_api.model.Coleta;
 import br.com.fiap.ecoactions_api.model.PontoColeta;
 import br.com.fiap.ecoactions_api.model.Residuo;
@@ -15,8 +16,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -58,17 +61,34 @@ class ColetaServiceTest {
     }
 
     @Test
-    void capacidadeDoPontoNaoDeveFicarNegativa() {
+    void deveRejeitarColetaAcimaDoSaldoSemAlterarDados() {
         var residuo = new Residuo("residuo-1", "Papel", 100);
         var ponto = new PontoColeta("ponto-1", residuo, "Escola Municipal", 20, 100);
         var request = new ColetaRequest("ponto-1", LocalDate.now(), 50);
 
         when(pontoColetaService.buscarEntidadePorId("ponto-1")).thenReturn(ponto);
+
+        assertThatThrownBy(() -> coletaService.cadastrar(request))
+                .isInstanceOf(ResourceConflictException.class)
+                .hasMessageContaining("quantidade disponível");
+
+        assertThat(ponto.getCapacidadeAtual()).isEqualTo(20);
+        verifyNoInteractions(coletaRepository, pontoColetaRepository);
+    }
+
+    @Test
+    void devePermitirColetaDeTodoOSaldoDisponivel() {
+        var residuo = new Residuo("residuo-1", "Papel", 100);
+        var ponto = new PontoColeta("ponto-1", residuo, "Escola Municipal", 20, 100);
+        var request = new ColetaRequest("ponto-1", LocalDate.now(), 20);
+
+        when(pontoColetaService.buscarEntidadePorId("ponto-1")).thenReturn(ponto);
         when(coletaRepository.save(any(Coleta.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
-        coletaService.cadastrar(request);
+        var response = coletaService.cadastrar(request);
 
         assertThat(ponto.getCapacidadeAtual()).isZero();
+        assertThat(response.quantidadeColeta()).isEqualTo(20);
         verify(pontoColetaRepository).save(ponto);
     }
 }

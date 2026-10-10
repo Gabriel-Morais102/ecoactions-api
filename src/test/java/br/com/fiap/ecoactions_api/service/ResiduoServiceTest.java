@@ -1,8 +1,10 @@
 package br.com.fiap.ecoactions_api.service;
 
 import br.com.fiap.ecoactions_api.dto.request.ResiduoRequest;
+import br.com.fiap.ecoactions_api.exception.ResourceConflictException;
 import br.com.fiap.ecoactions_api.exception.ResourceNotFoundException;
 import br.com.fiap.ecoactions_api.model.Residuo;
+import br.com.fiap.ecoactions_api.repository.PontoColetaRepository;
 import br.com.fiap.ecoactions_api.repository.ResiduoRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,6 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -24,6 +27,9 @@ class ResiduoServiceTest {
 
     @Mock
     private ResiduoRepository residuoRepository;
+
+    @Mock
+    private PontoColetaRepository pontoColetaRepository;
 
     @InjectMocks
     private ResiduoService residuoService;
@@ -67,5 +73,29 @@ class ResiduoServiceTest {
         assertThatThrownBy(() -> residuoService.buscarPorId("inexistente"))
                 .isInstanceOf(ResourceNotFoundException.class)
                 .hasMessageContaining("inexistente");
+    }
+
+    @Test
+    void deveImpedirExclusaoDeResiduoVinculadoAPonto() {
+        var residuo = new Residuo("residuo-1", "Papel", 100);
+        when(residuoRepository.findById("residuo-1")).thenReturn(Optional.of(residuo));
+        when(pontoColetaRepository.existsByResiduo(residuo)).thenReturn(true);
+
+        assertThatThrownBy(() -> residuoService.remover("residuo-1"))
+                .isInstanceOf(ResourceConflictException.class)
+                .hasMessageContaining("pontos de coleta");
+
+        verify(residuoRepository, never()).delete(any(Residuo.class));
+    }
+
+    @Test
+    void deveRemoverResiduoSemPontosVinculados() {
+        var residuo = new Residuo("residuo-1", "Papel", 100);
+        when(residuoRepository.findById("residuo-1")).thenReturn(Optional.of(residuo));
+        when(pontoColetaRepository.existsByResiduo(residuo)).thenReturn(false);
+
+        residuoService.remover("residuo-1");
+
+        verify(residuoRepository).delete(residuo);
     }
 }

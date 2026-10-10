@@ -6,20 +6,26 @@ services:
     restart: unless-stopped
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME:-ecoactions_admin}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD:-ecoactions_password}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD:?Defina MONGO_ROOT_PASSWORD no arquivo de ambiente}
       MONGO_INITDB_DATABASE: ${MONGO_DATABASE:-ecoactions}
+      MONGO_APP_USERNAME: ${MONGO_APP_USERNAME:-ecoactions_app}
+      MONGO_APP_PASSWORD: ${MONGO_APP_PASSWORD:?Defina MONGO_APP_PASSWORD no arquivo de ambiente}
     ports:
-      - "${MONGO_PORT:-27017}:27017"
+      - "127.0.0.1:${MONGO_PORT:-27017}:27017"
     volumes:
       - mongo-data:/data/db
       - ./docker/mongodb/init:/docker-entrypoint-initdb.d:ro
+      - ./docker/mongodb/migrate-app-user.js:/opt/ecoactions/migrate-app-user.js:ro
     networks:
       - ecoactions-network
     healthcheck:
       test:
         [
-          "CMD-SHELL",
-          "mongosh --quiet --username $$MONGO_INITDB_ROOT_USERNAME --password $$MONGO_INITDB_ROOT_PASSWORD --authenticationDatabase admin --eval \"db.adminCommand('ping').ok\""
+          "CMD",
+          "mongosh",
+          "--quiet",
+          "--eval",
+          "const admin = db.getSiblingDB('admin'); const auth = admin.auth(process.env.MONGO_INITDB_ROOT_USERNAME, process.env.MONGO_INITDB_ROOT_PASSWORD); if (auth !== 1 && auth?.ok !== 1) quit(1); if (admin.runCommand({ ping: 1 }).ok !== 1) quit(1);"
         ]
       interval: 10s
       timeout: 5s
@@ -37,12 +43,17 @@ services:
         condition: service_healthy
     environment:
       SERVER_PORT: ${SERVER_PORT:-8080}
-      MONGODB_URI: mongodb://${MONGO_ROOT_USERNAME:-ecoactions_admin}:${MONGO_ROOT_PASSWORD:-ecoactions_password}@mongo-db:27017/${MONGO_DATABASE:-ecoactions}?authSource=admin
+      MONGODB_HOST: mongo-db
+      MONGODB_PORT: 27017
+      MONGODB_DATABASE: ${MONGO_DATABASE:-ecoactions}
+      MONGODB_USERNAME: ${MONGO_APP_USERNAME:-ecoactions_app}
+      MONGODB_PASSWORD: ${MONGO_APP_PASSWORD:?Defina MONGO_APP_PASSWORD no arquivo de ambiente}
+      MONGODB_AUTHENTICATION_DATABASE: ${MONGO_DATABASE:-ecoactions}
       MONGODB_AUTO_INDEX_CREATION: ${MONGODB_AUTO_INDEX_CREATION:-true}
       APP_ADMIN_USERNAME: ${APP_ADMIN_USERNAME:-admin}
-      APP_ADMIN_PASSWORD: ${APP_ADMIN_PASSWORD:-admin123}
+      APP_ADMIN_PASSWORD: ${APP_ADMIN_PASSWORD:?Defina APP_ADMIN_PASSWORD no arquivo de ambiente}
       APP_USER_USERNAME: ${APP_USER_USERNAME:-user}
-      APP_USER_PASSWORD: ${APP_USER_PASSWORD:-user123}
+      APP_USER_PASSWORD: ${APP_USER_PASSWORD:?Defina APP_USER_PASSWORD no arquivo de ambiente}
     ports:
       - "${APP_PORT:-8080}:${SERVER_PORT:-8080}"
     networks:
@@ -51,7 +62,7 @@ services:
       test:
         [
           "CMD-SHELL",
-          "curl --fail --silent http://localhost:$${SERVER_PORT:-8080}/api/health || exit 1"
+          "curl --fail --silent --show-error --max-time 4 http://localhost:$${SERVER_PORT:-8080}/api/health || exit 1"
         ]
       interval: 15s
       timeout: 5s

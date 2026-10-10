@@ -2,8 +2,10 @@ package br.com.fiap.ecoactions_api.service;
 
 import br.com.fiap.ecoactions_api.dto.request.ResiduoRequest;
 import br.com.fiap.ecoactions_api.dto.response.ResiduoResponse;
+import br.com.fiap.ecoactions_api.exception.ResourceConflictException;
 import br.com.fiap.ecoactions_api.exception.ResourceNotFoundException;
 import br.com.fiap.ecoactions_api.model.Residuo;
+import br.com.fiap.ecoactions_api.repository.PontoColetaRepository;
 import br.com.fiap.ecoactions_api.repository.ResiduoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ import java.util.List;
 public class ResiduoService {
 
     private final ResiduoRepository residuoRepository;
+    private final PontoColetaRepository pontoColetaRepository;
 
     public List<ResiduoResponse> listar() {
         return residuoRepository.findAll()
@@ -45,6 +48,11 @@ public class ResiduoService {
 
     public void remover(String id) {
         var residuo = buscarEntidadePorId(id);
+
+        if (pontoColetaRepository.existsByResiduo(residuo)) {
+            throw new ResourceConflictException("O resíduo está vinculado a pontos de coleta e não pode ser removido.");
+        }
+
         residuoRepository.delete(residuo);
     }
 

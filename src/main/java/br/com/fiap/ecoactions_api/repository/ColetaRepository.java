@@ -9,4 +9,6 @@ import java.util.List;
 public interface ColetaRepository extends MongoRepository<Coleta, String> {
 
     List<Coleta> findByPontoColeta(PontoColeta pontoColeta);
+
+    boolean existsByPontoColeta(PontoColeta pontoColeta);
 }
