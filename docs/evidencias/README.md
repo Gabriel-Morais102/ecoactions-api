@@ -17,13 +17,13 @@ README e para a documentação técnica.
 | `04-staging-funcionando.png` | Log de staging acima | API e MongoDB de staging funcionando |
 | `05-deploy-producao-local.txt` | Docker Compose e `/api/health` | Serviços de produção saudáveis |
 | `06-producao-funcionando.png` | Log de produção acima | API e MongoDB de produção funcionando |
+| `07-pipeline-cicd-github.png` | GitHub Actions, execução #1 | Os quatro jobs do pipeline concluídos com sucesso |
+| `03-deploy-staging-pipeline.png` | GitHub Actions, job de staging | Etapas do deploy de staging aprovadas |
+| `05-deploy-producao-pipeline.png` | GitHub Actions, job de produção | Etapas do deploy de produção aprovadas |
 
-## Evidências pendentes
+## Execução do pipeline
 
-Os prints do workflow no GitHub Actions dependem da publicação do projeto em um
-repositório GitHub e de uma execução real do arquivo `.github/workflows/ci-cd.yml`:
-
-- `03-deploy-staging-pipeline.png`;
-- `05-deploy-producao-pipeline.png`.
-
-Esses arquivos não devem ser substituídos por imagens simuladas.
+A execução real está disponível em
+[GitHub Actions — execução #1](https://github.com/Gabriel-Morais102/ecoactions-api/actions/runs/38076926404).
+O workflow terminou com status **Success** e duração total de 2 minutos e 40
+segundos. Nenhuma evidência desta pasta foi simulada.

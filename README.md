@@ -4,6 +4,8 @@ API REST para apoiar a gestão inteligente de resíduos, pontos de coleta, colet
 destinações e alertas ambientais. O projeto aplica práticas de DevOps para
 automatizar build, testes, containerização e deploy em staging e produção.
 
+**Repositório público:** [github.com/Gabriel-Morais102/ecoactions-api](https://github.com/Gabriel-Morais102/ecoactions-api)
+
 > **Integrante(s):** preencher antes da entrega  
 > **Turma:** preencher antes da entrega
 
@@ -382,15 +384,22 @@ com status `UP`.
 Produção possui API na porta `8082`, MongoDB na porta `27019` e health check
 com status `UP`.
 
-### Evidências pendentes do GitHub Actions
+### Pipeline executado no GitHub Actions
 
-Os dois prints abaixo somente poderão ser obtidos depois que o projeto for
-publicado em um repositório GitHub e o workflow for executado:
+![Pipeline CI/CD concluído no GitHub Actions](docs/evidencias/07-pipeline-cicd-github.png)
 
-- `03-deploy-staging-pipeline.png`;
-- `05-deploy-producao-pipeline.png`.
+A [execução #1 do workflow](https://github.com/Gabriel-Morais102/ecoactions-api/actions/runs/38076926404)
+terminou com status **Success** em 2 minutos e 40 segundos. Os quatro jobs
+foram executados em sequência: build e testes, criação da imagem Docker, deploy
+em staging e deploy em produção.
 
-Eles não foram substituídos por imagens simuladas.
+#### Deploy em staging
+
+![Job de staging concluído](docs/evidencias/03-deploy-staging-pipeline.png)
+
+#### Deploy em produção
+
+![Job de produção concluído](docs/evidencias/05-deploy-producao-pipeline.png)
 
 ## Tecnologias utilizadas
 
@@ -414,9 +423,9 @@ A apresentação técnica está disponível em
 Ela reúne a arquitetura, o pipeline, as estratégias de containerização, as
 evidências locais de build, testes e deploy, além dos desafios encontrados.
 
-Os campos de integrantes e turma devem ser preenchidos antes do envio. Os
-prints do GitHub Actions também devem ser acrescentados depois da primeira
-execução real do workflow; nenhuma evidência foi simulada.
+Os campos de integrantes e turma devem ser preenchidos antes do envio. A
+apresentação já contém os prints da primeira execução real do GitHub Actions;
+nenhuma evidência foi simulada.
 
 ## Estrutura do projeto
 
@@ -465,9 +474,8 @@ repositório.
 | `docker-compose.yml` ou arquivos Kubernetes | ☑ |
 | Pipeline com etapas de build, teste e deploy | ☑ |
 | README.md com instruções e prints | ☑ |
-| Documentação técnica com evidências em PDF ou PPT | ☐ |
+| Documentação técnica com evidências em PDF ou PPT | ☑ |
 | Deploy realizado nos ambientes staging e produção | ☑ |
 
-O único item mantido em aberto é a documentação técnica completa, pois os prints
-de execução do GitHub Actions ainda dependem da publicação do repositório. A
-apresentação e as demais evidências já estão incluídas no pacote.
+Todos os itens técnicos foram concluídos e comprovados. Antes do upload na
+plataforma, falta somente preencher os nomes e a turma nos campos indicados.
