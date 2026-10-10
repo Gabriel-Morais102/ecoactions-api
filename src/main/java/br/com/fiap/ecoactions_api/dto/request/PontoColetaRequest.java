@@ -10,7 +10,7 @@ public record PontoColetaRequest(
         String residuoId,
 
         @NotBlank(message = "O local do ponto de coleta é obrigatório.")
-        @Size(max = 100, message = "O local deve ter no máximo 100 caracteres.")
+        @Size(min = 3, max = 100, message = "O local deve ter entre 3 e 100 caracteres.")
         String local,
 
         @NotNull(message = "A capacidade atual é obrigatória.")

@@ -21,7 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 
 import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.not;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
@@ -128,7 +128,8 @@ class ResiduoControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"tipoResiduo\":\"\",\"limiteMaximo\":0}"))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.details", hasSize(2)));
+                .andExpect(jsonPath("$.details", hasItem(containsString("tipoResiduo:"))))
+                .andExpect(jsonPath("$.details", hasItem(containsString("limiteMaximo:"))));
 
         verifyNoInteractions(residuoService);
     }

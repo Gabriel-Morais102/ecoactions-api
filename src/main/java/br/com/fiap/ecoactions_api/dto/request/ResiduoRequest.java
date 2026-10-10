@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 
 public record ResiduoRequest(
         @NotBlank(message = "O tipo do resíduo é obrigatório.")
-        @Size(max = 50, message = "O tipo do resíduo deve ter no máximo 50 caracteres.")
+        @Size(min = 2, max = 50, message = "O tipo do resíduo deve ter entre 2 e 50 caracteres.")
         String tipoResiduo,
 
         @NotNull(message = "O limite máximo é obrigatório.")

@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 public record AlertaRequest(
         @NotBlank(message = "A mensagem do alerta é obrigatória.")
-        @Size(max = 200, message = "A mensagem do alerta deve ter no máximo 200 caracteres.")
+        @Size(min = 5, max = 200, message = "A mensagem do alerta deve ter entre 5 e 200 caracteres.")
         String mensagem,
 
         LocalDate dataAlerta

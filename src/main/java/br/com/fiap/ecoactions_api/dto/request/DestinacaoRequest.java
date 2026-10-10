@@ -8,7 +8,7 @@ public record DestinacaoRequest(
         String coletaId,
 
         @NotBlank(message = "O tipo de destino é obrigatório.")
-        @Size(max = 50, message = "O tipo de destino deve ter no máximo 50 caracteres.")
+        @Size(min = 3, max = 50, message = "O tipo de destino deve ter entre 3 e 50 caracteres.")
         String tipoDestino
 ) {
 }
