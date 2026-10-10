@@ -24,17 +24,17 @@ permissions:
 jobs:
   build-and-test:
     name: Build e testes
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
 
     steps:
       - name: Baixar o código-fonte
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           persist-credentials: false
 
       - name: Configurar Java 17
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: "17"
@@ -48,7 +48,7 @@ jobs:
 
       - name: Salvar JAR e relatórios de testes
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: build-${{ github.run_number }}
           path: |
@@ -60,14 +60,14 @@ jobs:
   docker-image:
     name: Criar imagem Docker
     needs: build-and-test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     env:
       APP_IMAGE: ecoactions-api:${{ github.sha }}
 
     steps:
       - name: Baixar o código-fonte
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Construir a imagem da aplicação
         run: docker build --tag "$APP_IMAGE" .
@@ -79,7 +79,7 @@ jobs:
         run: docker save "$APP_IMAGE" --output ecoactions-api-image.tar
 
       - name: Publicar a imagem como artefato do pipeline
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ecoactions-api-image
           path: ecoactions-api-image.tar
@@ -101,12 +101,12 @@ jobs:
 
     steps:
       - name: Baixar os arquivos de infraestrutura
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           persist-credentials: false
 
       - name: Baixar a imagem gerada no pipeline
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: ecoactions-api-image
 
@@ -133,7 +133,7 @@ jobs:
 
     steps:
       - name: Baixar os arquivos de infraestrutura
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           persist-credentials: false
 
@@ -147,7 +147,7 @@ jobs:
 
       - name: Baixar a imagem aprovada em staging
         if: steps.local_image.outputs.available != 'true'
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: ecoactions-api-image
 
